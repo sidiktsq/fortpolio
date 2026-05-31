@@ -86,6 +86,36 @@
             margin-top: 15px;
             margin-bottom: 0;
         }
+        .article-title {
+            font-size: 3rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 20px;
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: 8px 8px 0 var(--border-color);
+            line-height: 1.2;
+        }
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 1.8rem;
+                padding: 15px;
+                box-shadow: 4px 4px 0 var(--border-color);
+            }
+            .article-content {
+                padding: 20px;
+                font-size: 1.05rem;
+            }
+            .article-content h2 {
+                font-size: 1.6rem;
+                margin-top: 30px;
+            }
+            .article-content h3 {
+                font-size: 1.3rem;
+            }
+            .toc-box {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -120,7 +150,7 @@
     <section class="hero" style="min-height: 30vh; padding: 60px 5%; background-image: linear-gradient(var(--border-color) 2px, transparent 2px), linear-gradient(90deg, var(--border-color) 2px, transparent 2px); background-size: 50px 50px; background-color: #8a2be2;">
         <div class="hero-content" style="max-width: 900px; margin: 0 auto; text-align: center;">
             <span class="tag" style="display: inline-block; background: var(--tertiary-color); color: #1a1a1a; padding: 8px 20px; border: var(--border-width) solid var(--border-color); font-weight: 900; margin-bottom: 20px; font-size: 1rem;">Frontend</span>
-            <h1 style="font-size: 3rem; background: var(--card-bg); color: var(--text-color); padding: 20px; border: var(--border-width) solid var(--border-color); box-shadow: 8px 8px 0 var(--border-color); line-height: 1.2;">Masa Depan React dan Server Components: Evolusi Pengembangan Web Modern</h1>
+            <h1 class="article-title">Masa Depan React dan Server Components: Evolusi Pengembangan Web Modern</h1>
         </div>
     </section>
     
