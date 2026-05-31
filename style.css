@@ -373,6 +373,7 @@ footer {
 
 /* Responsive - Tablet (768px and below) */
 @media (max-width: 768px) {
+
     /* Navbar */
     .navbar {
         padding: 15px 3%;
@@ -497,6 +498,7 @@ footer {
 
 /* Responsive - Mobile Small (480px and below) */
 @media (max-width: 480px) {
+
     /* Navbar */
     .navbar {
         padding: 12px 2%;
@@ -511,7 +513,7 @@ footer {
     }
 
     /* Theme and menu buttons */
-    .navbar > div:last-child {
+    .navbar>div:last-child {
         gap: 8px;
     }
 
