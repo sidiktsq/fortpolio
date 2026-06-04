@@ -14,7 +14,12 @@ const baseImages = [
   '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg', '10.jpeg',
   '11.jpeg', '12.jpeg', '13.jpeg', '14.jpeg', '15.jpeg', '16.jpeg', '17.jpeg', '18.jpeg',
   '19.jpeg', '20.jpeg', '21.jpeg', '22.jpeg', '23.jpeg', '24.jpeg', '25.jpeg', '26.jpeg',
-  '27.jpeg', '28.jpeg', '29.jpeg'
+  '27.jpeg', '28.jpeg', '29.jpeg', '1.1.jpeg', '1.2.jpeg', '1.3.jpeg', '1.4.jpeg', '1.5.jpeg', '1.6.jpeg',
+  '1.7.jpeg', '1.8.jpeg', '1.9.jpeg', '1.10.jpeg', '1.11.jpeg', '1.12.jpeg', '1.13.jpeg', '1.14.jpeg',
+  '1.15.jpeg', '1.16.jpeg', '1.17.jpeg', '1.18.jpeg', '1.19.jpeg', '1.20.jpeg', '1.21.jpeg', '1.22.jpeg',
+  '1.23.jpeg', '1.24.jpeg', '1.25.jpeg', '1.26.jpeg', '1.27.jpeg', '1.28.jpeg', '1.29.jpeg', '1.30.jpeg',
+  '1.31.jpeg', '1.32.jpeg', '1.33.jpeg', '1.34.jpeg', '1.35.jpeg', '1.36.jpeg', '1.37.jpeg', '1.38.jpeg',
+  '1.39.jpeg', '1.40.jpeg', '1.41.jpeg', '1.42.jpeg', '1.43.jpeg', '1.44.jpeg', '1.45.jpeg', '1.46.jpeg'
 ]
 
 onMounted(() => {

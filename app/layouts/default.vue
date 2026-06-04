@@ -176,6 +176,9 @@ const toggleTheme = () => {
     <!-- Main Content Slot -->
     <slot />
 
+    <!-- Sakana Widget (Chisato) -->
+    <SakanaWidget />
+
     <!-- Unified Footer -->
     <footer>
       <p>&copy; 2026 Rizky Mochamad Sidik. Built with Nuxt.js</p>
