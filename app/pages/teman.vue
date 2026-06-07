@@ -25,8 +25,8 @@ useHead({
         01 — Digital Nodes
       </h3>
       <div class="friends-grid">
-        <a href="https://nairha.nlfts.dev" target="_blank" class="friend-card">
-          <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/204519754?v=4" alt="Nairha">
+        <a href="https://www.davingm.com" target="_blank" class="friend-card">
+          <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/204519754?v=4" alt="davingm">
           <div class="friend-info">
             <h3 class="friend-name">davingm</h3>
             <p class="friend-quote">"我來過，我見過，我掌握了"</p>
