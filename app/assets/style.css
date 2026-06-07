@@ -61,12 +61,12 @@ body {
 
 .btn-primary {
     background-color: var(--primary-color);
-    color: white;
+    color: #1a1a1a;
 }
 
 .btn-secondary {
     background-color: var(--secondary-color);
-    color: white;
+    color: #1a1a1a;
 }
 
 .btn-small {
@@ -273,6 +273,13 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
+}
+
+@media (max-width: 1024px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
 }
 
 .project-card {
@@ -518,7 +525,7 @@ footer {
     }
 
     .navbar .btn {
-        padding: 6px !important;
+        padding: 10px !important;
     }
 
     /* Hero */
@@ -552,8 +559,8 @@ footer {
     }
 
     .btn {
-        padding: 8px 14px;
-        font-size: 0.85rem;
+        padding: 11px 18px;
+        font-size: 0.9rem;
         box-shadow: 3px 3px 0 var(--border-color);
     }
 

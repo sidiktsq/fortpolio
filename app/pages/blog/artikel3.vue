@@ -203,7 +203,7 @@ useHead({
 
 .toc-box {
   background: var(--secondary-color);
-  color: #fff;
+  color: #1a1a1a;
   padding: 25px;
   border: var(--border-width) solid var(--border-color);
   margin-top: 30px;
@@ -213,10 +213,10 @@ useHead({
 .toc-box h3 {
   background: none;
   border: none;
-  color: #fff;
+  color: #1a1a1a;
   padding: 0;
   margin-top: 0;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #1a1a1a;
   display: block;
 }
 

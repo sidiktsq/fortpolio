@@ -70,8 +70,8 @@ useHead({
                 <li><strong>Meningkatkan fokus pada elemen penting:</strong> Penggunaan kontras yang tinggi membantu pengguna menemukan tombol atau informasi penting dengan lebih cepat.</li>
               </ul>
             </div>
-            <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #fff;">
-              <h4 style="border-bottom: 2px solid #fff; padding-bottom: 10px;">Kekurangan</h4>
+            <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+              <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">Kekurangan</h4>
               <ul style="margin-top: 15px;">
                 <li><strong>Tidak cocok untuk semua jenis aplikasi:</strong> Aplikasi perbankan, kesehatan, atau sistem formal terkadang memerlukan tampilan yang lebih profesional dan konservatif.</li>
                 <li><strong>Berpotensi melelahkan mata:</strong> Penggunaan warna yang terlalu mencolok dapat membuat pengguna merasa tidak nyaman jika digunakan secara berlebihan.</li>

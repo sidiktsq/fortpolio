@@ -20,7 +20,7 @@ useHead({
       </div>
       <div class="hero-image">
         <div class="image-placeholder">
-          <img src="/images/viil2.png" alt="Developer Profile">
+          <img src="/images/profile_custom.png" alt="Developer Profile" loading="eager" fetchpriority="high">
         </div>
       </div>
     </header>

@@ -22,6 +22,12 @@ const baseImages = [
   '1.39.jpeg', '1.40.jpeg', '1.41.jpeg', '1.42.jpeg', '1.43.jpeg', '1.44.jpeg', '1.45.jpeg', '1.46.jpeg'
 ]
 
+const visibleCount = ref(16)
+
+const loadMore = () => {
+  visibleCount.value += 12
+}
+
 onMounted(() => {
   // Randomize array to make masonry look more dynamic
   galleryImages.value = [...baseImages].sort(() => 0.5 - Math.random())
@@ -79,13 +85,18 @@ const handleKeydown = (event) => {
     <!-- Gallery Grid -->
     <div class="gallery-grid">
       <div 
-        v-for="img in galleryImages" 
+        v-for="img in galleryImages.slice(0, visibleCount)" 
         :key="img" 
         class="gallery-item"
         @click="openLightbox(img)"
       >
         <img :src="`/gallery/${img}`" alt="Gallery image" loading="lazy">
       </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div v-if="visibleCount < galleryImages.length" style="display: flex; justify-content: center; margin: 40px 0 60px 0;">
+      <button @click="loadMore" class="btn btn-primary" style="font-size: 1.1rem; padding: 14px 30px;">Load More Momen</button>
     </div>
   </div>
 </template>

@@ -148,8 +148,8 @@ useHead({
                 <li>Cocok untuk aplikasi skala kecil hingga besar</li>
               </ul>
             </div>
-            <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #fff;">
-              <h4 style="border-bottom: 2px solid #fff; padding-bottom: 10px;">Kekurangan</h4>
+            <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+              <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">Kekurangan</h4>
               <ul style="margin-top: 15px;">
                 <li>Kurva belajar sedikit lebih tinggi dibanding Vue dasar.</li>
                 <li>Beberapa konsep SSR memerlukan pemahaman tambahan.</li>
