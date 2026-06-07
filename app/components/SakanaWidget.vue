@@ -32,10 +32,9 @@ const initWidget = () => {
     // Get default chisato character data
     const chisatoCharacter = window.SakanaWidget.getCharacter('chisato');
     if (chisatoCharacter) {
-      // Override the image with custom chibi1.png (contains transparent padding)
+      // Override the image with c      // Override the image with custom chibi1.png (contains transparent padding)
       chisatoCharacter.image = '/gallery/chibi1.png';
-      // Register custom character
-      window.SakanaWidget.registerCharacter('chisato-custom', chisatoCharacter);
+     window.SakanaWidget.registerCharacter('chisato-custom', chisatoCharacter);
     }
 
     // Initialize Sakana Widget with custom Chisato
