@@ -82,6 +82,19 @@ useHead({
             <p>Nuxt adalah framework open-source yang dibangun di atas Vue.js untuk mempermudah pengembangan aplikasi web modern. Nuxt dirancang agar developer dapat membangun website dan aplikasi dengan performa tinggi, struktur proyek yang rapi, serta optimasi SEO yang lebih baik dibandingkan aplikasi Vue biasa.</p>
             <NuxtLink to="/blog/artikel5" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Baca Artikel</NuxtLink>
           </div>
+          </div>
+
+          <!-- Article 6 -->
+        <div class="project-card">
+          <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
+            <img src="/images/laravel.png" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="project-info">
+            <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">Framework</span>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">Laravel: Framework PHP Modern untuk Pengembangan Aplikasi Web</h3>
+            <p>Laravel adalah salah satu framework PHP paling populer di dunia yang digunakan untuk membangun aplikasi web modern. Framework ini pertama kali dikembangkan oleh Taylor Otwell dan dirilis pada tahun 2011 sebagai alternatif yang lebih elegan dan mudah digunakan dibandingkan banyak framework PHP lain pada masanya.</p>
+            <NuxtLink to="/blog/artikel6" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Baca Artikel</NuxtLink>
+          </div>
         </div>
       </div>
     </section>
