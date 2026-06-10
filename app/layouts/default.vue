@@ -46,7 +46,7 @@ const toggleTheme = () => {
 </script>
 
 <template>
-  <div>
+  <div class="layout-wrapper">
     <nav class="navbar">
       <div class="logo">{{ logoText }}</div>
       <div style="position: relative; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
@@ -174,7 +174,9 @@ const toggleTheme = () => {
     </nav>
 
     <!-- Main Content Slot -->
-    <slot />
+    <main class="layout-main">
+      <slot />
+    </main>
 
     <!-- Sakana Widget (Chisato) -->
     <SakanaWidget />
