@@ -40,60 +40,6 @@ useHead({
             <p>Robust database management solutions powered by MySQL and PostgreSQL, offering reliable data storage and optimized performance.</p>
           </div>
         </div>
-
-        <!-- Project 4 -->
-        <div class="project-card">
-          <img src="/images/image.png" alt="Portfolio Template">
-          <div class="project-info">
-            <h3>PORTFOLIO TEMPLATE</h3>
-            <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics.</p>
-          </div>
-        </div>
-
-        <!-- Project 5 -->
-        <div class="project-card">
-          <img src="/images/image.png" alt="Portfolio Template">
-          <div class="project-info">
-            <h3>PORTFOLIO TEMPLATE</h3>
-            <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics.</p>
-          </div>
-        </div>
-
-        <!-- Project 6 -->
-        <div class="project-card">
-          <img src="/images/image.png" alt="Portfolio Template">
-          <div class="project-info">
-            <h3>PORTFOLIO TEMPLATE</h3>
-            <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics.</p>
-          </div>
-        </div>
-
-        <!-- Project 7 -->
-        <div class="project-card">
-          <img src="/images/image.png" alt="Portfolio Template">
-          <div class="project-info">
-            <h3>PORTFOLIO TEMPLATE</h3>
-            <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics.</p>
-          </div>
-        </div>
-
-        <!-- Project 8 -->
-        <div class="project-card">
-          <img src="/images/image.png" alt="Portfolio Template">
-          <div class="project-info">
-            <h3>PORTFOLIO TEMPLATE</h3>
-            <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics.</p>
-          </div>
-        </div>
-
-        <!-- Project 9 -->
-        <div class="project-card">
-          <img src="/images/image.png" alt="Portfolio Template">
-          <div class="project-info">
-            <h3>PORTFOLIO TEMPLATE</h3>
-            <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics.</p>
-          </div>
-        </div>
       </div>
     </section>
   </div>
