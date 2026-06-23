@@ -110,7 +110,7 @@ onMounted(async () => {
         takagiToolFont: '14px',
         takagiToolLine: '20px',
         takagiToolTop: '0px',
-        takagiMinWidth: 'disable', // Set to disable so it can load on mobile
+        takagiMinWidth: '768px', // Hide via JS on screens <= 768px
         takagiEdgeSide: 'left:20', // Align to left margin nicely
         takagiDraggable: 'unlimited', // Draggable option: 'disable', 'axis-x', 'unlimited'
         takagiDraggableRevert: true,
@@ -226,39 +226,13 @@ onUnmounted(() => {
   box-shadow: 1px 1px 0 #1a1a1a;
 }
 
-/* Custom responsiveness for Live2D on Mobile */
+/* Hide Live2D widget and restore button entirely on Mobile */
 @media (max-width: 768px) {
   .live2d-widget-wrapper :deep(.takagi) {
-    transform: scale(0.55) translateY(3px) !important; /* Scale mascot down */
-    transform-origin: left bottom !important;
-    left: 10px !important;
-    bottom: 0px !important;
-  }
-  
-  /* Hide the speech bubble entirely on mobile so it doesn't block the screen */
-  .live2d-widget-wrapper :deep(.takagi-tips) {
     display: none !important;
   }
-  
-  /* Adjust restore button size for smaller screens */
   .restore-widget-btn {
-    width: 38px;
-    height: 38px;
-    font-size: 0.9rem;
-    bottom: 15px;
-    left: 15px;
-    border: 2px solid #1a1a1a;
-    box-shadow: 2px 2px 0 #1a1a1a;
-  }
-  
-  .restore-widget-btn:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0 #1a1a1a;
-  }
-  
-  .restore-widget-btn:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0 #1a1a1a;
+    display: none !important;
   }
 }
 </style>
