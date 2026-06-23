@@ -74,10 +74,10 @@ useHead({
           </div>
         </a>
 
-        <a href="https://ryn-delta.vercel.app" target="_blank" class="friend-card">
+        <a href="https://xoryn.nlfts.dev" target="_blank" class="friend-card">
           <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/226198461?v=4" alt="KakaViangi">
           <div class="friend-info">
-            <h3 class="friend-name">KakaViangi</h3>
+            <h3 class="friend-name">Radiedtya</h3>
             <p class="friend-quote">"Hanya orang biasa yang menyukai alam @NFLTs."</p>
           </div>
         </a>
