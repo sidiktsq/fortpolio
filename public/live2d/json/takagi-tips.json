@@ -1,0 +1,376 @@
+{
+    "takagi": {
+        "hitokoto_api_message": {
+            "lwl12.com": ["Kutipan ini berasal dari <span style=\"color:#0099cc;\">『{source}』</span>", ", dikirimkan oleh <span style=\"color:#0099cc;\">{creator}</span>", "."],
+            "fghrsh.net": ["Kutipan ini bersumber dari <span style=\"color:#0099cc;\">『{source}』</span>, disimpan oleh <span style=\"color:#0099cc;\">FGHRSH</span> pada {date}!"],
+            "jinrishici.com": ["Puisi ini berasal dari <span style=\"color:#0099cc;\">《{title}》</span>, diciptakan oleh penyair dinasti {dynasty} {author}!"],
+            "hitokoto.cn": ["Kutipan ini berasal dari <span style=\"color:#0099cc;\">『{source}』</span>, dikirim oleh <span style=\"color:#0099cc;\">{creator}</span> di hitokoto.cn."]
+        },
+        "console_open_msg": [
+            "Haha, kamu membuka konsol dev, apa kamu ingin melihat rahasia saya?"
+        ],
+        "copy_message": [
+            "Apa yang kamu salin? Jangan lupa sertakan sumbernya jika ingin membagikan ulang ya!"
+        ],
+        "screenshot_message": [
+            "Sudah terpotret? Apakah saya terlihat imut?"
+        ],
+        "hidden_message": [
+            "Kita akan bertemu lagi kan..."
+        ],
+        "load_rand_textures": [
+            "Saya belum punya pakaian lain saat ini.",
+            "Apakah pakaian baru saya terlihat bagus?"
+        ],
+        "hour_tips": {
+            "t5-7": [
+                "Selamat pagi! Hari yang indah baru saja dimulai!"
+            ],
+            "t7-11": [
+                "Selamat pagi menjelang siang! Semoga pekerjaanmu lancar, jangan duduk terlalu lama, ayo berdiri dan bergerak!"
+            ],
+            "t11-14": [
+                "Sudah siang, setelah bekerja seharian, sekarang waktunya makan siang!"
+            ],
+            "t14-17": [
+                "Waktu sore begini memang mudah membuat mengantuk ya~"
+            ],
+            "t17-19": [
+                "Sudah senja! Pemandangan matahari terbenam di luar sangat indah~"
+            ],
+            "t19-21": [
+                "Selamat malam, bagaimana harimu hari ini?"
+            ],
+            "t21-23": [
+                "Sudah larut malam, istirahatlah lebih awal, selamat malam~"
+            ],
+            "t23-5": [
+                "Kamu anak burung hantu ya? Belum tidur selarut ini, apa besok bisa bangun pagi?"
+            ],
+            "default": [
+                "Hai~ Ayo main denganku!"
+            ]
+        },
+        "referrer_message": {
+            "localhost": [
+                "Selamat datang untuk membaca <span style=\"color:#E06020;\">『",
+                "』</span>",
+                " - "
+            ],
+            "baidu": [
+                "Halo teman dari Baidu Search!<br>Apakah kamu menemukan saya dengan mencari <span style=\"color:#E06020;\">",
+                "</span>?"
+            ],
+            "so": [
+                "Halo teman dari 360 Search!<br>Apakah kamu menemukan saya dengan mencari <span style=\"color:#E06020;\">",
+                "</span>?"
+            ],
+            "google": [
+                "Halo teman dari Google Search!<br>Selamat membaca <span style=\"color:#E06020;\">『",
+                "』</span>",
+                " - "
+            ],
+            "default": [
+                "Halo teman dari <span style=\"color:#E06020;\">",
+                "</span>"
+            ],
+            "none": [
+                "Selamat datang untuk membaca <span style=\"color:#E06020;\">『",
+                "』</span>",
+                " - "
+            ]
+        },
+        "referrer_hostname": {
+            "example.com": [
+                "Situs Contoh"
+            ],
+            "lixingyong.com": [
+                "Blog Takagi"
+            ]
+        },
+        "model_message": {
+            "1": [
+                "Pio dari Potion Maker ~"
+            ],
+            "2": [
+                "Tia dari Potion Maker ~"
+            ]
+        }
+    },
+    "mouseover": [
+        {
+            "selector": ".article a[href^='http']",
+            "text": [
+                "Apakah kamu ingin melihat <span style=\"color:#E06020;\">{text}</span>?"
+            ]
+        },
+        {
+            "selector": ".post-content .post-title",
+            "text": [
+                "Ingin membaca artikel <span style=\"color:#E06020;\">{text}</span>?"
+            ]
+        },
+        {
+            "selector": ".cd-top",
+            "text": [
+                "Mari kembali ke atas~"
+            ]
+        },
+        {
+            "selector": ".lower",
+            "text": [
+                "Pemilik blog ini sedang miskin, dukung atau donasi yuk~ ヾ(≧∇≦*)ゝ"
+            ]
+        },
+        {
+            "selector": ".single-reward",
+            "text": [
+                "Suka dengan artikel ini? Yuk dukung dengan donasi~ <br> ヾ(≧∇≦*)ゝ"
+            ]
+        },
+        {
+            "selector": "#video-btn:not(.video-pause)",
+            "text": [
+                "Ingin menonton video? Kamu bisa matikan musik latar belakang terlebih dahulu di pojok kiri bawah~"
+            ]
+        },
+        {
+            "selector": "#video-btn.video-pause",
+            "text": [
+                "Ingin menjeda?"
+            ]
+        },
+        {
+            "selector": ".video-stu",
+            "text": [
+                "Sedang memuat ya~"
+            ]
+        },
+        {
+            "selector": "#video-add",
+            "text": [
+                "Putar ulang ya~"
+            ]
+        },
+        {
+            "selector": ".fui-home",
+            "text": [
+                "Klik untuk pergi ke Beranda. Jika ingin kembali, gunakan tombol kembali di browser ya"
+            ]
+        },
+        {
+            "selector": ".fui-chat",
+            "text": [
+                "Satu kata, satu senyuman. Obrolan yang menyenangkan."
+            ]
+        },
+        {
+            "selector": ".fui-eye",
+            "text": [
+                "Hmm... Ingin mengganti karakter mascot?"
+            ]
+        },
+        {
+            "selector": ".fui-user",
+            "text": [
+                "Ganti pakaian!"
+            ]
+        },
+        {
+            "selector": ".fui-photo",
+            "text": [
+                "Tetap tersenyum ya~!"
+            ]
+        },
+        {
+            "selector": ".fui-info-circle",
+            "text": [
+                "Ada info tentang saya di sini"
+            ]
+        },
+        {
+            "selector": ".fui-cross",
+            "text": [
+                "Hmph, kamu pasti akan menyesal!"
+            ]
+        },
+        {
+            "selector": ".site-title",
+            "text": [
+                "Klik LOGO untuk ke Beranda. Jika ingin kembali, gunakan tombol kembali browser ya"
+            ]
+        },
+        {
+            "selector": ".aplayer-play",
+            "text": [
+                "Putar"
+            ]
+        },
+        {
+            "selector": ".aplayer-pause",
+            "text": [
+                "Jeda"
+            ]
+        },
+        {
+            "selector": "#back-to-top",
+            "text": [
+                "Kembali ke awal yuk"
+            ]
+        },
+        {
+            "selector": "#author",
+            "text": [
+                "Bagaimana saya harus memanggilmu?"
+            ]
+        },
+        {
+            "selector": "#email",
+            "text": [
+                "Tinggalkan emailmu, agar mendapatkan notifikasi balasan nanti"
+            ]
+        },
+        {
+            "selector": "#url",
+            "text": [
+                "Di mana alamat website-mu? Biar nanti saya kunjungi"
+            ]
+        },
+        {
+            "selector": ".commentbody",
+            "text": [
+                "Isi dengan baik ya, spam komentar dilarang keras~ <br>"
+            ]
+        },
+        {
+            "selector": ".button-submit",
+            "text": [
+                "Mau mengirim sekarang? Kamu akan mendapat notifikasi email jika dibalas~"
+            ]
+        },
+        {
+            "selector": ".changeSkin-gear",
+            "text": [
+                "Bisa ganti skin juga lho~"
+            ]
+        },
+        {
+            "selector": ".previous",
+            "text": [
+                "Baca artikel sebelumnya yuk"
+            ]
+        },
+        {
+            "selector": ".next",
+            "text": [
+                "Baca artikel selanjutnya yuk"
+            ]
+        },
+        {
+            "selector": ".dropdown-toggle",
+            "text": [
+                "Ini adalah menu nav"
+            ]
+        },
+        {
+            "selector": "li[id^='bg_']",
+            "text": [
+                "{text}"
+            ]
+        },
+        {
+            "selector": ".takagi #live2d",
+            "text": [
+                "Sedang apa kamu? Cepat jauhkan tanganmu!",
+                "A-alat penunjuk mouse diletakkan di tempat yang salah!",
+                "Muach~ (*･´ω`･)っ"
+            ]
+        }
+    ],
+    "click": [
+        {
+            "selector": ".takagi #live2d",
+            "text": [
+                "I-itu... tidak sengaja tersentuh kan?",
+                "Apa itu lolicon?",
+                "Apakah kamu melihat beruang kecilku?",
+                "Kalau kamu sentuh lagi, aku panggil polisi lho! ⌇●﹏●⌇",
+                "Halo polisi? Ada orang mesum terus menyentuhku di sini (ó﹏ò｡)"
+            ]
+        }
+    ],
+    "seasons": [
+        {
+            "date": "01/01",
+            "text": [
+                "<span style=\"color:#E06020;\">Tahun Baru</span> tiba! Tahun baru telah dimulai, sekarang adalah tahun {year}~"
+            ]
+        },
+        {
+            "date": "02/14",
+            "text": [
+                "Hari <span style=\"color:#E06020;\">Valentine</span> lagi! Apakah kamu sudah punya pasangan di tahun {year} ini~"
+            ]
+        },
+        {
+            "date": "03/08",
+            "text": [
+                "Hari ini adalah <span style=\"color:#E06020;\">Hari Perempuan Internasional</span>!"
+            ]
+        },
+        {
+            "date": "03/12",
+            "text": [
+                "Hari ini adalah <span style=\"color:#E06020;\">Hari Menanam Pohon</span>, mari jaga kelestarian lingkungan kita"
+            ]
+        },
+        {
+            "date": "04/01",
+            "text": [
+                "Biar kubisikkan rahasia padamu~ <span style=\"background-color:#34495e;\">Hari ini April Mop, jangan sampai tertipu ya~</span>"
+            ]
+        },
+        {
+            "date": "05/01",
+            "text": [
+                "Hari ini <span style=\"color:#E06020;\">Hari Buruh</span>, sudah punya rencana liburan ke mana saja~"
+            ]
+        },
+        {
+            "date": "06/01",
+            "text": [
+                "Hari <span style=\"color:#E06020;\">Anak-Anak</span>! Masa-masa menyenangkan berlalu cepat, andai kita bisa terus menjadi anak kecil..."
+            ]
+        },
+        {
+            "date": "09/03",
+            "text": [
+                "<span style=\"color:#E06020;\">Hari Kemenangan Perang</span>, ingat sejarah, hargai perdamaian, dan gapai masa depan yang cerah."
+            ]
+        },
+        {
+            "date": "09/10",
+            "text": [
+                "Hari <span style=\"color:#E06020;\">Guru</span>, jangan lupa berikan salam hormat kepada gurumu di sekolah ya~"
+            ]
+        },
+        {
+            "date": "10/01",
+            "text": [
+                "Selamat <span style=\"color:#E06020;\">Hari Kemerdekaan</span>!"
+            ]
+        },
+        {
+            "date": "11/05-11/12",
+            "text": [
+                "Dengan siapa kamu merayakan festival belanja <span style=\"color:#E06020;\">Single's Day (11/11)</span> tahun ini~"
+            ]
+        },
+        {
+            "date": "12/20-12/31",
+            "text": [
+                "Hari-hari ini adalah suasana <span style=\"color:#E06020;\">Natal</span>, pastinya pemilik blog sedang sibuk berbelanja~"
+            ]
+        }
+    ]
+}

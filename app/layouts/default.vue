@@ -178,8 +178,8 @@ const toggleTheme = () => {
       <slot />
     </main>
 
-    <!-- Sakana Widget (Chisato) -->
-    <SakanaWidget />
+    <!-- Live2D Widget (Takagi) -->
+    <Live2DWidget />
 
     <!-- Unified Footer -->
     <footer>
