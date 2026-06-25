@@ -1,5 +1,8 @@
 <script setup>
 import { onMounted, onUnmounted, ref, nextTick } from 'vue'
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { VRMLoaderPlugin } from '@pixiv/three-vrm'
 
 const isLoaded = ref(false)
 const isLoading = ref(true)
@@ -144,10 +147,6 @@ onMounted(async () => {
   window.addEventListener('mousemove', handleMouseMoveGlobal)
 
   try {
-    const THREE = await import('three')
-    const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js')
-    const { VRMLoaderPlugin } = await import('@pixiv/three-vrm')
-
     scene = new THREE.Scene()
 
     // Create a group to handle centering & global widget rotations
