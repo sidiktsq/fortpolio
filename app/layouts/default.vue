@@ -181,10 +181,8 @@ const toggleTheme = () => {
     <!-- Live2D Widget (Takagi) -->
     <Live2DWidget />
 
-    <!-- 3D VRM Widget (Elaina) -->
-    <ClientOnly>
-      <ThreeDWidget />
-    </ClientOnly>
+    <!-- 3D VRM Widget (Elaina) - .client.vue handles client-only rendering -->
+    <ThreeDWidget />
 
     <!-- Unified Footer -->
     <footer>

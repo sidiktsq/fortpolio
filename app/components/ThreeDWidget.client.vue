@@ -146,6 +146,17 @@ onMounted(async () => {
 
   window.addEventListener('mousemove', handleMouseMoveGlobal)
 
+  // Wait for Vue to finish rendering the template so canvas ref is available
+  await nextTick()
+
+  if (!canvasRef.value) {
+    console.error('Canvas ref is null')
+    errorMessage.value = 'Canvas element not found in DOM'
+    isLoading.value = false
+    hasError.value = true
+    return
+  }
+
   try {
     scene = new THREE.Scene()
 
