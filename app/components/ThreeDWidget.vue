@@ -9,6 +9,7 @@ const hasError = ref(false)
 
 const bubbleText = ref('')
 const bubbleActive = ref(false)
+const errorMessage = ref('')
 
 // Canvas reference
 const canvasRef = ref(null)
@@ -197,8 +198,12 @@ onMounted(async () => {
     const loader = new GLTFLoader()
     loader.register((parser) => new VRMLoaderPlugin(parser))
 
+    const config = useRuntimeConfig()
+    const baseURL = config.app.baseURL || '/'
+    const modelUrl = baseURL.endsWith('/') ? `${baseURL}models/elaina.glb` : `${baseURL}/models/elaina.glb`
+
     loader.load(
-      '/models/elaina.glb',
+      modelUrl,
       (gltf) => {
         isLoading.value = false
         isLoaded.value = true
@@ -352,6 +357,7 @@ onMounted(async () => {
       },
       (error) => {
         console.error('Failed to load 3D GLB model:', error)
+        errorMessage.value = error?.message || (error?.target?.status ? `Status: ${error.target.status} (File not found at ${modelUrl})` : 'Model failed to load/parse')
         isLoading.value = false
         hasError.value = true
       }
@@ -425,6 +431,7 @@ onMounted(async () => {
 
   } catch (err) {
     console.error('Initialization of Three.js failed:', err)
+    errorMessage.value = err.message || String(err)
     isLoading.value = false
     hasError.value = true
   }
@@ -516,6 +523,9 @@ onUnmounted(() => {
         <div class="vrm-loader-inner">
           <span class="vrm-loader-icon">❌</span>
           <div class="vrm-loader-text" style="color: var(--primary-color);">Gagal Memuat 3D!</div>
+          <div v-if="errorMessage" style="font-size: 0.65rem; color: #555; margin-top: 6px; word-break: break-all; text-transform: none; font-weight: normal; line-height: 1.3;">
+            {{ errorMessage }}
+          </div>
           <button class="vrm-retry-btn" @click="window.location.reload()">Retry</button>
         </div>
       </div>

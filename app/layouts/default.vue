@@ -182,7 +182,9 @@ const toggleTheme = () => {
     <Live2DWidget />
 
     <!-- 3D VRM Widget (Elaina) -->
-    <ThreeDWidget />
+    <ClientOnly>
+      <ThreeDWidget />
+    </ClientOnly>
 
     <!-- Unified Footer -->
     <footer>
