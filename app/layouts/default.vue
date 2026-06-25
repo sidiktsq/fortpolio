@@ -181,6 +181,9 @@ const toggleTheme = () => {
     <!-- Live2D Widget (Takagi) -->
     <Live2DWidget />
 
+    <!-- 3D VRM Widget (Elaina) -->
+    <ThreeDWidget />
+
     <!-- Unified Footer -->
     <footer>
       <p>&copy; 2026 Rizky Mochamad Sidik. Built with Nuxt.js</p>
