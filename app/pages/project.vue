@@ -14,30 +14,33 @@ useHead({
         <h2>PROJECTS-RIZKY MOCHAMAD SIDIK</h2>
       </div>
       <div class="projects-grid">
-        <!-- Project 1 -->
+         <!-- Article 1 -->
         <div class="project-card">
-          <img src="/images/company.png" alt="Company Profile">
+          <img src="/images/comprofile.png" alt="company profile cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
-            <h3>COMPANY PROFILE</h3>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">COMPANY PROFILE</h3>
             <p>A comprehensive company profile built with Laravel and PHP, designed to deliver a modern and seamless user experience.</p>
+            <NuxtLink to="https://sidiktsq-companyprofilesekolah.vercel.app/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Visit Website</NuxtLink>
           </div>
         </div>
 
         <!-- Project 2 -->
         <div class="project-card">
-          <img src="/images/image.png" alt="Portfolio Template">
+          <img src="/images/porto.png" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
-            <h3>PORTFOLIO TEMPLATE</h3>
-            <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics.</p>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">PORTFOLIO WEBSITE</h3>
+            <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics</p>
+            <NuxtLink to="https://sidiktsq.nlfts.dev/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Visit Website</NuxtLink>
           </div>
         </div>
 
         <!-- Project 3 -->
-        <div class="project-card">
-          <img src="/images/mama.png" alt="Database Management">
+       <div class="project-card">
+          <img src="/images/vhgallery.png" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
-            <h3>DATABASE MANAGEMENT</h3>
-            <p>Robust database management solutions powered by MySQL and PostgreSQL, offering reliable data storage and optimized performance.</p>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">VILLHAZE</h3>
+            <p>Gallery of Villhaze is a modern online gallery that showcases a curated collection of visuals, artwork, and creative moments in a clean, immersive, and responsive experience.</p>
+            <NuxtLink to="https://gallery-of-villhaze.vercel.app/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Visit Website</NuxtLink>
           </div>
         </div>
       </div>
