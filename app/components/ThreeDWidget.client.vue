@@ -52,17 +52,48 @@ const debugInfo = ref({
   center: 'Loading...'
 })
 
-const quotes = [
-  "Siapa gadis cantik berambut abu-abu ini? Ya, benar, aku! Elaina. ✨",
-  "Perjalanan melintasi berbagai negeri sangat melelahkan, tapi melihat portofoliomu membuatku bersemangat!",
-  "Wah, portofoliomu rapi sekali! Desain neo-brutalism yang unik, aku suka warnanya.",
-  "Hei! Kamu bisa memutar tubuhku dengan mengklik dan mengeret mouse-mu. Seru juga!",
-  "Di pojok kiri ada Takagi-san, di pojok kanan ada aku. Lengkap sekali portofolio ini!",
-  "Sebagai penyihir pengembara, aku telah melihat banyak hal hebat, tapi karya-karyamu sungguh menakjubkan!",
-  "Apakah kamu tertarik dengan sihir? Aku bisa mengajarimu beberapa mantra dasar jika kamu mau."
+// ── Model Registry ──────────────────────────────────────────────────
+const modelRegistry = [
+  {
+    id: 'elaina',
+    name: 'Elaina',
+    file: 'elaina.glb',
+    icon: '🧹',
+    greeting: 'Halo! Aku Elaina, Sang Penyihir Pengembara. Selamat datang di portofolio ini! 🔮',
+    quotes: [
+      "Siapa gadis cantik berambut abu-abu ini? Ya, benar, aku! Elaina. ✨",
+      "Perjalanan melintasi berbagai negeri sangat melelahkan, tapi melihat portofoliomu membuatku bersemangat!",
+      "Wah, portofoliomu rapi sekali! Desain neo-brutalism yang unik, aku suka warnanya.",
+      "Hei! Kamu bisa memutar tubuhku dengan mengklik dan mengeret mouse-mu. Seru juga!",
+      "Di pojok kiri ada Takagi-san, di pojok kanan ada aku. Lengkap sekali portofolio ini!",
+      "Sebagai penyihir pengembara, aku telah melihat banyak hal hebat, tapi karya-karyamu sungguh menakjubkan!",
+      "Apakah kamu tertarik dengan sihir? Aku bisa mengajarimu beberapa mantra dasar jika kamu mau."
+    ]
+  },
+  {
+    id: 'mita',
+    name: 'Mita',
+    file: 'mita.glb',
+    icon: '🎀',
+    greeting: 'Haii~ Aku Mita! Senang bertemu denganmu di portofolio ini! 💕',
+    quotes: [
+      "Kamu tidak akan meninggalkanku, kan? Aku akan selalu di sini untukmu~ 💗",
+      "Portofolio ini keren banget! Aku suka desainnya~ Tapi aku lebih suka kamu. 😊",
+      "Hei, kamu tahu? Aku bisa melihat semua yang kamu lakukan di sini~ 👀",
+      "Jangan klik yang lain, cukup klik aku saja ya~ 💕",
+      "Aku sudah menunggu kamu dari tadi lho~ Akhirnya kamu datang juga! ✨",
+      "Kalau kamu butuh teman, aku selalu ada di sini. Selamanya~ 🌸",
+      "Wah, project-projectnya keren! Tapi yang paling keren itu kamu~ 💗"
+    ]
+  }
 ]
 
-// Function to trigger speech bubble
+const currentModelIndex = ref(0)
+const isSwitching = ref(false)
+
+const currentModel = () => modelRegistry[currentModelIndex.value]
+
+// ── Speech Bubble ───────────────────────────────────────────────────
 const showBubble = (text) => {
   bubbleText.value = text
   bubbleActive.value = true
@@ -74,10 +105,11 @@ const showBubble = (text) => {
 }
 
 const triggerGreeting = () => {
-  showBubble("Halo! Aku Elaina, Sang Penyihir Pengembara. Selamat datang di portofolio ini! 🔮")
+  showBubble(currentModel().greeting)
 }
 
 const triggerRandomQuote = () => {
+  const quotes = currentModel().quotes
   const idx = Math.floor(Math.random() * quotes.length)
   showBubble(quotes[idx])
 }
@@ -137,11 +169,268 @@ const handleMouseMoveGlobal = (event) => {
   mouseY.value = -(event.clientY / window.innerHeight) * 2 + 1
 }
 
+// ── Core Model Loader ───────────────────────────────────────────────
+function disposeCurrentModel() {
+  if (currentVRM) {
+    if (currentVRM.scene) {
+      modelGroup.remove(currentVRM.scene)
+      currentVRM.scene.traverse((object) => {
+        if (!object.isMesh) return
+        object.geometry?.dispose()
+        if (Array.isArray(object.material)) {
+          object.material.forEach((m) => m.dispose())
+        } else {
+          object.material?.dispose()
+        }
+      })
+    }
+    currentVRM = null
+  }
+  if (currentGLTF) {
+    modelGroup.remove(currentGLTF)
+    currentGLTF.traverse((object) => {
+      if (!object.isMesh) return
+      object.geometry?.dispose()
+      if (Array.isArray(object.material)) {
+        object.material.forEach((m) => m.dispose())
+      } else {
+        object.material?.dispose()
+      }
+    })
+    currentGLTF = null
+  }
+  headBone = null
+  neckBone = null
+  hipsBone = null
+}
+
+function loadModel(modelInfo) {
+  return new Promise((resolve, reject) => {
+    const loader = new GLTFLoader()
+    loader.register((parser) => new VRMLoaderPlugin(parser))
+
+    const config = useRuntimeConfig()
+    const baseURL = config.app.baseURL || '/'
+    const modelUrl = baseURL.endsWith('/')
+      ? `${baseURL}models/${modelInfo.file}`
+      : `${baseURL}/models/${modelInfo.file}`
+
+    isLoading.value = true
+    loadingProgress.value = 0
+    hasError.value = false
+    errorMessage.value = ''
+
+    loader.load(
+      modelUrl,
+      (gltf) => {
+        isLoading.value = false
+        isLoaded.value = true
+
+        const vrm = gltf.userData.vrm
+        let activeModel = null
+
+        if (vrm) {
+          currentVRM = vrm
+          activeModel = vrm.scene
+          modelGroup.add(activeModel)
+
+          // Face forward
+          activeModel.rotation.y = Math.PI
+
+          // Locate bones
+          headBone = vrm.humanoid?.getNormalizedBoneNode('head')
+          neckBone = vrm.humanoid?.getNormalizedBoneNode('neck')
+          hipsBone = vrm.humanoid?.getNormalizedBoneNode('hips')
+
+          if (vrm.lookAt) {
+            vrm.lookAt.autoUpdate = false
+          }
+        } else {
+          currentGLTF = gltf.scene
+          activeModel = gltf.scene
+          modelGroup.add(activeModel)
+
+          // Face forward
+          activeModel.rotation.y = Math.PI
+
+          // Traverse to search bones manually
+          activeModel.traverse((node) => {
+            if (node.isBone) {
+              const name = node.name.toLowerCase()
+              if (name.includes('head') && !headBone) {
+                headBone = node
+              } else if (name.includes('neck') && !neckBone) {
+                neckBone = node
+              } else if ((name.includes('hip') || name.includes('pelvis')) && !hipsBone) {
+                hipsBone = node
+              }
+            }
+          })
+        }
+
+        // Force matrix update to compute world coordinates
+        modelGroup.updateMatrixWorld(true)
+
+        // Auto-detect if character bones are oriented horizontally along the Z-axis
+        if (headBone && hipsBone) {
+          const headLoc = new THREE.Vector3()
+          const hipsLoc = new THREE.Vector3()
+          headBone.getWorldPosition(headLoc)
+          hipsBone.getWorldPosition(hipsLoc)
+
+          const deltaY = headLoc.y - hipsLoc.y
+          const deltaZ = headLoc.z - hipsLoc.z
+
+          if (Math.abs(deltaZ) > Math.abs(deltaY)) {
+            console.log('Detected model lying horizontally along Z-axis. Rotating model upright.')
+            if (deltaZ > 0) {
+              activeModel.rotation.x = -Math.PI / 2
+            } else {
+              activeModel.rotation.x = Math.PI / 2
+            }
+            modelGroup.updateMatrixWorld(true)
+          }
+        }
+
+        // Scale model dynamically to match a standard height (1.45 units to head bone)
+        let initialHeadHeight = 1.35
+        if (headBone) {
+          const headWorldPos = new THREE.Vector3()
+          headBone.getWorldPosition(headWorldPos)
+          initialHeadHeight = headWorldPos.y
+        } else {
+          const box = new THREE.Box3().setFromObject(activeModel)
+          initialHeadHeight = box.getSize(new THREE.Vector3()).y
+        }
+
+        // Scale factor: we want the head to be at Y = 1.45
+        const targetHeadHeight = 1.45
+        const scaleFactor = targetHeadHeight / initialHeadHeight
+        activeModel.scale.setScalar(scaleFactor)
+        
+        // Force update world matrix after scaling
+        modelGroup.updateMatrixWorld(true)
+
+        // Center model on X and Z axis relative to hips
+        if (hipsBone) {
+          const hipsWorldPos = new THREE.Vector3()
+          hipsBone.getWorldPosition(hipsWorldPos)
+          activeModel.position.x = -hipsWorldPos.x
+          activeModel.position.z = -hipsWorldPos.z
+          
+          debugInfo.value.hips = `${hipsWorldPos.x.toFixed(3)}, ${hipsWorldPos.y.toFixed(3)}, ${hipsWorldPos.z.toFixed(3)}`
+        } else {
+          debugInfo.value.hips = 'Not Found'
+        }
+        activeModel.position.y = 0
+        modelGroup.updateMatrixWorld(true)
+
+        // Get final head bone world position to place the camera
+        let headHeight = targetHeadHeight
+        let headZ = 0
+        let headX = 0
+
+        if (headBone) {
+          const headWorldPos = new THREE.Vector3()
+          headBone.getWorldPosition(headWorldPos)
+          headHeight = headWorldPos.y
+          headZ = headWorldPos.z
+          headX = headWorldPos.x
+          
+          debugInfo.value.head = `${headX.toFixed(3)}, ${headHeight.toFixed(3)}, ${headZ.toFixed(3)}`
+        } else {
+          debugInfo.value.head = `Scale fallback Y: ${headHeight.toFixed(3)}`
+        }
+
+        // Turn off frustum culling
+        activeModel.traverse((node) => {
+          if (node.isMesh) {
+            node.frustumCulled = false
+          }
+        })
+
+        // Adjust camera position & lookAt target (full body view)
+        const targetHeight = headHeight * 0.55
+        camera.position.set(headX, targetHeight, headZ + 4.5)
+        camera.lookAt(new THREE.Vector3(headX, targetHeight, headZ))
+
+        debugInfo.value.camera = `${camera.position.x.toFixed(3)}, ${camera.position.y.toFixed(3)}, ${camera.position.z.toFixed(3)}`
+
+        // Check overall model bounds for debug overlay
+        const groupBounds = new THREE.Box3().setFromObject(modelGroup)
+        const sizeBounds = groupBounds.getSize(new THREE.Vector3())
+        const centerBounds = groupBounds.getCenter(new THREE.Vector3())
+        debugInfo.value.bounds = `${sizeBounds.x.toFixed(2)} x ${sizeBounds.y.toFixed(2)} x ${sizeBounds.z.toFixed(2)}`
+        debugInfo.value.center = `${centerBounds.x.toFixed(2)}, ${centerBounds.y.toFixed(2)}, ${centerBounds.z.toFixed(2)}`
+
+        console.log('DEBUG INFO:', debugInfo.value)
+        resolve()
+      },
+      (progressEvent) => {
+        if (progressEvent.total > 0) {
+          loadingProgress.value = Math.round((progressEvent.loaded / progressEvent.total) * 100)
+        }
+      },
+      (error) => {
+        console.error('Failed to load 3D GLB model:', error)
+        errorMessage.value = error?.message || (error?.target?.status ? `Status: ${error.target.status} (File not found at ${modelUrl})` : 'Model failed to load/parse')
+        isLoading.value = false
+        hasError.value = true
+        reject(error)
+      }
+    )
+  })
+}
+
+// ── Switch Model ────────────────────────────────────────────────────
+const switchModel = async () => {
+  if (isSwitching.value || !modelGroup) return
+  
+  isSwitching.value = true
+  bubbleActive.value = false
+
+  // Determine next model
+  const nextIndex = (currentModelIndex.value + 1) % modelRegistry.length
+  
+  // Dispose current model
+  disposeCurrentModel()
+  
+  // Reset rotation
+  dragRotationY = Math.PI
+  if (modelGroup) {
+    modelGroup.rotation.y = Math.PI
+  }
+
+  // Update index
+  currentModelIndex.value = nextIndex
+
+  // Save preference
+  sessionStorage.setItem('3d-model-index', String(nextIndex))
+  
+  try {
+    await loadModel(modelRegistry[nextIndex])
+    triggerGreeting()
+  } catch (e) {
+    console.error('Model switch failed:', e)
+  } finally {
+    isSwitching.value = false
+  }
+}
+
 onMounted(async () => {
   if (typeof window === 'undefined') return
 
   if (sessionStorage.getItem('elaina-widget-display') === 'none') {
     isHidden.value = true
+  }
+
+  // Restore saved model preference
+  const savedIndex = sessionStorage.getItem('3d-model-index')
+  if (savedIndex !== null) {
+    const parsed = parseInt(savedIndex, 10)
+    if (!isNaN(parsed) && parsed >= 0 && parsed < modelRegistry.length) {
+      currentModelIndex.value = parsed
+    }
   }
 
   window.addEventListener('mousemove', handleMouseMoveGlobal)
@@ -205,173 +494,13 @@ onMounted(async () => {
 
     clock = new THREE.Clock()
 
-    const loader = new GLTFLoader()
-    loader.register((parser) => new VRMLoaderPlugin(parser))
-
-    const config = useRuntimeConfig()
-    const baseURL = config.app.baseURL || '/'
-    const modelUrl = baseURL.endsWith('/') ? `${baseURL}models/elaina.glb` : `${baseURL}/models/elaina.glb`
-
-    loader.load(
-      modelUrl,
-      (gltf) => {
-        isLoading.value = false
-        isLoaded.value = true
-
-        const vrm = gltf.userData.vrm
-        let activeModel = null
-
-        if (vrm) {
-          currentVRM = vrm
-          activeModel = vrm.scene
-          modelGroup.add(activeModel)
-
-          // Face forward
-          activeModel.rotation.y = Math.PI
-
-          // Locate bones
-          headBone = vrm.humanoid?.getNormalizedBoneNode('head')
-          neckBone = vrm.humanoid?.getNormalizedBoneNode('neck')
-          hipsBone = vrm.humanoid?.getNormalizedBoneNode('hips')
-
-          if (vrm.lookAt) {
-            vrm.lookAt.autoUpdate = false
-          }
-        } else {
-          currentGLTF = gltf.scene
-          activeModel = gltf.scene
-          modelGroup.add(activeModel)
-
-          // Face forward
-          activeModel.rotation.y = Math.PI
-
-          // Traverse to search bones manually
-          activeModel.traverse((node) => {
-            if (node.isBone) {
-              const name = node.name.toLowerCase()
-              if (name.includes('head') && !headBone) {
-                headBone = node
-              } else if (name.includes('neck') && !neckBone) {
-                neckBone = node
-              } else if ((name.includes('hip') || name.includes('pelvis')) && !hipsBone) {
-                hipsBone = node
-              }
-            }
-          })
-        }
-
-        // Force matrix update to compute world coordinates
-        modelGroup.updateMatrixWorld(true)
-
-        // Auto-detect if character bones are oriented horizontally along the Z-axis (common skinning issue)
-        if (headBone && hipsBone) {
-          const headLoc = new THREE.Vector3()
-          const hipsLoc = new THREE.Vector3()
-          headBone.getWorldPosition(headLoc)
-          hipsBone.getWorldPosition(hipsLoc)
-
-          const deltaY = headLoc.y - hipsLoc.y
-          const deltaZ = headLoc.z - hipsLoc.z
-
-          if (Math.abs(deltaZ) > Math.abs(deltaY)) {
-            console.log('Detected model lying horizontally along Z-axis. Rotating model upright.')
-            if (deltaZ > 0) {
-              activeModel.rotation.x = -Math.PI / 2
-            } else {
-              activeModel.rotation.x = Math.PI / 2
-            }
-            modelGroup.updateMatrixWorld(true)
-          }
-        }
-
-        // 3. Scale model dynamically to match a standard height (1.45 units to head bone)
-        let initialHeadHeight = 1.35
-        if (headBone) {
-          const headWorldPos = new THREE.Vector3()
-          headBone.getWorldPosition(headWorldPos)
-          initialHeadHeight = headWorldPos.y
-        } else {
-          const box = new THREE.Box3().setFromObject(activeModel)
-          initialHeadHeight = box.getSize(new THREE.Vector3()).y
-        }
-
-        // Scale factor: we want the head to be at Y = 1.45
-        const targetHeadHeight = 1.45
-        const scaleFactor = targetHeadHeight / initialHeadHeight
-        activeModel.scale.setScalar(scaleFactor)
-        
-        // Force update world matrix after scaling
-        modelGroup.updateMatrixWorld(true)
-
-        // 4. Center model on X and Z axis relative to hips, and keep Y = 0 (standing on ground)
-        if (hipsBone) {
-          const hipsWorldPos = new THREE.Vector3()
-          hipsBone.getWorldPosition(hipsWorldPos)
-          activeModel.position.x = -hipsWorldPos.x
-          activeModel.position.z = -hipsWorldPos.z
-          
-          debugInfo.value.hips = `${hipsWorldPos.x.toFixed(3)}, ${hipsWorldPos.y.toFixed(3)}, ${hipsWorldPos.z.toFixed(3)}`
-        } else {
-          debugInfo.value.hips = 'Not Found'
-        }
-        activeModel.position.y = 0
-        modelGroup.updateMatrixWorld(true)
-
-        // 5. Get final head bone world position to place the camera
-        let headHeight = targetHeadHeight
-        let headZ = 0
-        let headX = 0
-
-        if (headBone) {
-          const headWorldPos = new THREE.Vector3()
-          headBone.getWorldPosition(headWorldPos)
-          headHeight = headWorldPos.y
-          headZ = headWorldPos.z
-          headX = headWorldPos.x
-          
-          debugInfo.value.head = `${headX.toFixed(3)}, ${headHeight.toFixed(3)}, ${headZ.toFixed(3)}`
-        } else {
-          debugInfo.value.head = `Scale fallback Y: ${headHeight.toFixed(3)}`
-        }
-
-        // Turn off frustum culling on all skinned/static meshes so they never disappear
-        activeModel.traverse((node) => {
-          if (node.isMesh) {
-            node.frustumCulled = false
-          }
-        })
-
-        // Adjust camera position & lookAt target (full body view with hat + broom)
-        // Frame the model so feet sit at the bottom edge of the canvas
-        const targetHeight = headHeight * 0.55
-        camera.position.set(headX, targetHeight, headZ + 4.5)
-        camera.lookAt(new THREE.Vector3(headX, targetHeight, headZ))
-
-        debugInfo.value.camera = `${camera.position.x.toFixed(3)}, ${camera.position.y.toFixed(3)}, ${camera.position.z.toFixed(3)}`
-
-        // Check overall model bounds for debug overlay
-        const groupBounds = new THREE.Box3().setFromObject(modelGroup)
-        const sizeBounds = groupBounds.getSize(new THREE.Vector3())
-        const centerBounds = groupBounds.getCenter(new THREE.Vector3())
-        debugInfo.value.bounds = `${sizeBounds.x.toFixed(2)} x ${sizeBounds.y.toFixed(2)} x ${sizeBounds.z.toFixed(2)}`
-        debugInfo.value.center = `${centerBounds.x.toFixed(2)}, ${centerBounds.y.toFixed(2)}, ${centerBounds.z.toFixed(2)}`
-
-        console.log('DEBUG INFO:', debugInfo.value)
-
-        triggerGreeting()
-      },
-      (progressEvent) => {
-        if (progressEvent.total > 0) {
-          loadingProgress.value = Math.round((progressEvent.loaded / progressEvent.total) * 100)
-        }
-      },
-      (error) => {
-        console.error('Failed to load 3D GLB model:', error)
-        errorMessage.value = error?.message || (error?.target?.status ? `Status: ${error.target.status} (File not found at ${modelUrl})` : 'Model failed to load/parse')
-        isLoading.value = false
-        hasError.value = true
-      }
-    )
+    // Load the initial model
+    try {
+      await loadModel(currentModel())
+      triggerGreeting()
+    } catch (e) {
+      console.error('Initial model load failed:', e)
+    }
 
     // Animation Loop
     const animate = () => {
@@ -489,14 +618,29 @@ onUnmounted(() => {
       class="vrm-container"
       ref="containerRef"
     >
-      <!-- Small floating Close button visible on hover -->
-      <button 
-        class="vrm-close-btn" 
-        @click="handleClose" 
-        title="Sembunyikan Elaina"
-      >
-        &#x2715;
-      </button>
+      <!-- Top Action Buttons -->
+      <div class="vrm-action-bar">
+        <!-- Switch Model Button -->
+        <button 
+          class="vrm-switch-btn"
+          :class="{ 'switching': isSwitching }"
+          @click="switchModel" 
+          :disabled="isSwitching"
+          :title="`Ganti ke ${modelRegistry[(currentModelIndex + 1) % modelRegistry.length].name}`"
+        >
+          <span class="vrm-switch-icon">🔄</span>
+          <span class="vrm-switch-label">{{ modelRegistry[(currentModelIndex + 1) % modelRegistry.length].name }}</span>
+        </button>
+
+        <!-- Close Button -->
+        <button 
+          class="vrm-close-btn" 
+          @click="handleClose" 
+          :title="`Sembunyikan ${currentModel().name}`"
+        >
+          &#x2715;
+        </button>
+      </div>
 
       <!-- Speech Bubble -->
       <div 
@@ -516,11 +660,17 @@ onUnmounted(() => {
         @pointerleave="isDragging = false"
       ></canvas>
 
+      <!-- Character Name Badge -->
+      <div class="vrm-name-badge" v-if="isLoaded && !isLoading">
+        <span class="vrm-name-icon">{{ currentModel().icon }}</span>
+        <span class="vrm-name-text">{{ currentModel().name }}</span>
+      </div>
+
       <!-- Loader (Centred Card Overlay) -->
       <div v-if="isLoading" class="vrm-loader">
         <div class="vrm-loader-inner">
           <span class="vrm-loader-icon">🪄</span>
-          <div class="vrm-loader-text">Loading Elaina...</div>
+          <div class="vrm-loader-text">Loading {{ currentModel().name }}...</div>
           <div class="vrm-progressbar-border">
             <div class="vrm-progressbar-fill" :style="{ width: `${loadingProgress}%` }"></div>
           </div>
@@ -546,7 +696,7 @@ onUnmounted(() => {
       v-if="isHidden" 
       class="vrm-restore-btn" 
       @click="showWidget"
-      title="Tampilkan Elaina 3D"
+      :title="`Tampilkan ${currentModel().name} 3D`"
     >
       <span class="vrm-restore-icon">🔮</span>
     </div>
@@ -590,11 +740,121 @@ onUnmounted(() => {
   cursor: grabbing;
 }
 
-/* Small floating Close button */
-.vrm-close-btn {
+/* ── Top Action Bar ────────────────────────────────────────────────── */
+.vrm-action-bar {
   position: absolute;
   top: 10px;
   right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10006;
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.vrm-container:hover .vrm-action-bar {
+  opacity: 1;
+}
+
+/* ── Switch Model Button ─────────────────────────────────────────── */
+.vrm-switch-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--tertiary-color, #f9d423);
+  border: 3px solid var(--border-color, #1a1a1a);
+  box-shadow: 3px 3px 0 var(--border-color, #1a1a1a);
+  color: #1a1a1a;
+  font-weight: 800;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+.vrm-switch-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--border-color, #1a1a1a);
+  background-color: var(--secondary-color, #4facfe);
+}
+
+.vrm-switch-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--border-color, #1a1a1a);
+}
+
+.vrm-switch-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.vrm-switch-icon {
+  font-size: 0.85rem;
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.vrm-switch-btn.switching .vrm-switch-icon {
+  animation: spin-icon 0.7s ease-in-out;
+}
+
+@keyframes spin-icon {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.vrm-switch-label {
+  line-height: 1;
+}
+
+/* ── Character Name Badge ────────────────────────────────────────── */
+.vrm-name-badge {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--card-bg, #fff);
+  border: 3px solid var(--border-color, #1a1a1a);
+  box-shadow: 3px 3px 0 var(--border-color, #1a1a1a);
+  padding: 4px 12px;
+  pointer-events: none;
+  z-index: 10002;
+  animation: badge-appear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes badge-appear {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+.vrm-name-icon {
+  font-size: 0.9rem;
+}
+
+.vrm-name-text {
+  font-weight: 800;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #1a1a1a;
+}
+
+/* ── Close Button ────────────────────────────────────────────────── */
+.vrm-close-btn {
   background-color: var(--card-bg, #fff);
   border: 3px solid var(--border-color, #1a1a1a);
   box-shadow: 3px 3px 0 var(--border-color, #1a1a1a);
@@ -608,14 +868,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10006;
-  pointer-events: auto; /* Close button must be clickable */
-  opacity: 0;
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-.vrm-container:hover .vrm-close-btn {
-  opacity: 1;
+  transition: all 0.2s;
 }
 
 .vrm-close-btn:hover {
