@@ -11,15 +11,15 @@ const activeLightboxImg = ref(null)
 const isLightboxActive = ref(false)
 
 const baseImages = [
-  '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg', '10.jpeg',
-  '11.jpeg', '12.jpeg', '13.jpeg', '14.jpeg', '15.jpeg', '16.jpeg', '17.jpeg', '18.jpeg',
-  '19.jpeg', '20.jpeg', '21.jpeg', '22.jpeg', '23.jpeg', '24.jpeg', '25.jpeg', '26.jpeg',
-  '27.jpeg', '28.jpeg', '29.jpeg', '1.1.jpeg', '1.2.jpeg', '1.3.jpeg', '1.4.jpeg', '1.5.jpeg', '1.6.jpeg',
-  '1.7.jpeg', '1.8.jpeg', '1.9.jpeg', '1.10.jpeg', '1.11.jpeg', '1.12.jpeg', '1.13.jpeg', '1.14.jpeg',
-  '1.15.jpeg', '1.16.jpeg', '1.17.jpeg', '1.18.jpeg', '1.19.jpeg', '1.20.jpeg', '1.21.jpeg', '1.22.jpeg',
-  '1.23.jpeg', '1.24.jpeg', '1.25.jpeg', '1.26.jpeg', '1.27.jpeg', '1.28.jpeg', '1.29.jpeg', '1.30.jpeg',
-  '1.31.jpeg', '1.32.jpeg', '1.33.jpeg', '1.34.jpeg', '1.35.jpeg', '1.36.jpeg', '1.37.jpeg', '1.38.jpeg',
-  '1.39.jpeg', '1.40.jpeg', '1.41.jpeg', '1.42.jpeg', '1.43.jpeg', '1.44.jpeg', '1.45.jpeg', '1.46.jpeg'
+  '3.webp', '4.webp', '5.webp', '6.webp', '7.webp', '8.webp', '9.webp', '10.webp',
+  '11.webp', '12.webp', '13.webp', '14.webp', '15.webp', '16.webp', '17.webp', '18.webp',
+  '19.webp', '20.webp', '21.webp', '22.webp', '23.webp', '24.webp', '25.webp', '26.webp',
+  '27.webp', '28.webp', '29.webp', '1.1.webp', '1.2.webp', '1.3.webp', '1.4.webp', '1.5.webp', '1.6.webp',
+  '1.7.webp', '1.8.webp', '1.9.webp', '1.10.webp', '1.11.webp', '1.12.webp', '1.13.webp', '1.14.webp',
+  '1.15.webp', '1.16.webp', '1.17.webp', '1.18.webp', '1.19.webp', '1.20.webp', '1.21.webp', '1.22.webp',
+  '1.23.webp', '1.24.webp', '1.25.webp', '1.26.webp', '1.27.webp', '1.28.webp', '1.29.webp', '1.30.webp',
+  '1.31.webp', '1.32.webp', '1.33.webp', '1.34.webp', '1.35.webp', '1.36.webp', '1.37.webp', '1.38.webp',
+  '1.39.webp', '1.40.webp', '1.41.webp', '1.42.webp', '1.43.webp', '1.44.webp', '1.45.webp', '1.46.webp'
 ]
 
 const visibleCount = ref(16)

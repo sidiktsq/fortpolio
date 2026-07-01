@@ -16,7 +16,7 @@ useHead({
       <div class="projects-grid">
          <!-- Article 1 -->
         <div class="project-card">
-          <img src="/images/comprofile.png" alt="company profile cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
+          <img src="/images/comprofile.webp" alt="company profile cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
             <h3 style="font-size: 1.3rem; line-height: 1.3;">COMPANY PROFILE</h3>
             <p>A comprehensive company profile built with Laravel and PHP, designed to deliver a modern and seamless user experience.</p>
@@ -26,7 +26,7 @@ useHead({
 
         <!-- Project 2 -->
         <div class="project-card">
-          <img src="/images/porto.png" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
+          <img src="/images/porto.webp" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
             <h3 style="font-size: 1.3rem; line-height: 1.3;">PORTFOLIO WEBSITE</h3>
             <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics</p>
@@ -36,7 +36,7 @@ useHead({
 
         <!-- Project 3 -->
        <div class="project-card">
-          <img src="/images/vhgallery.png" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
+          <img src="/images/vhgallery.webp" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
             <h3 style="font-size: 1.3rem; line-height: 1.3;">VILLHAZE</h3>
             <p>Gallery of Villhaze is a modern online gallery that showcases a curated collection of visuals, artwork, and creative moments in a clean, immersive, and responsive experience.</p>

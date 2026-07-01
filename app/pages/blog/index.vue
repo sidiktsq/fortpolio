@@ -22,7 +22,7 @@ useHead({
         <!-- Article 1 -->
         <div class="project-card">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
-            <img src="/images/neo2.png" alt="Neo-Brutalism cover" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="/images/neo2.webp" alt="Neo-Brutalism cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-info">
             <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">Design</span>
@@ -35,7 +35,7 @@ useHead({
         <!-- Article 2 -->
         <div class="project-card">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
-            <img src="/images/sql.png" alt="MySQL cover" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="/images/sql.webp" alt="MySQL cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-info">
             <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">Database</span>
@@ -48,7 +48,7 @@ useHead({
         <!-- Article 3 -->
         <div class="project-card">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
-            <img src="/images/react.png" alt="React cover" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="/images/react.webp" alt="React cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-info">
             <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">Frontend</span>
@@ -61,7 +61,7 @@ useHead({
         <!-- Article 4 -->
         <div class="project-card">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
-            <img src="/images/vs.jpg" alt="VS Code cover" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="/images/vs.webp" alt="VS Code cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-info">
             <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">VSCODE</span>
@@ -74,7 +74,7 @@ useHead({
         <!-- Article 5 -->
         <div class="project-card">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
-            <img src="/images/nut.png" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="/images/nut.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-info">
             <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">Framework</span>
@@ -87,7 +87,7 @@ useHead({
           <!-- Article 6 -->
         <div class="project-card">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
-            <img src="/images/laravel.png" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="/images/laravel.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-info">
             <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">Framework</span>
