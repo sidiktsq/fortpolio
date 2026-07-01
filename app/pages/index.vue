@@ -108,6 +108,7 @@ useHead({
             <span class="tag">Bootstrap</span>
             <span class="tag">Tailwind</span>
             <span class="tag">Laragon</span>
+            <span class="tag">Nuxt</span>
           </div>
         </div>
         <div class="card">
