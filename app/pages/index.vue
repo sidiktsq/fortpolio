@@ -10,7 +10,7 @@ useHead({
   <div>
     <!-- Hero Section -->
     <header class="hero">
-      <div class="hero-content">
+      <div class="hero-content" v-reveal="'slide-up'">
         <h1>HI, I'M RIZKY MOCHAMAD SIDIK<br><span class="highlight">FULL STACK</span><br> DEVELOPER.</h1>
         <p>Building brutal, functional, and beautiful web experiences.</p>
         <div class="hero-buttons">
@@ -18,7 +18,7 @@ useHead({
           <a href="https://github.com/sidiktsq" target="_blank" class="btn btn-secondary">GitHub</a>
         </div>
       </div>
-      <div class="hero-image">
+      <div class="hero-image" v-reveal="'pop'">
         <div class="image-placeholder">
           <img src="/images/profile_custom.webp" alt="Developer Profile" loading="eager" fetchpriority="high">
         </div>
@@ -27,11 +27,12 @@ useHead({
 
     <!-- About Section -->
     <section id="about" class="section">
-      <div class="section-header">
+      <div class="section-header" v-reveal="'slide-left'">
         <h2>ABOUT ME</h2>
       </div>
 
       <div class="about-text"
+          v-reveal="'pop'"
           style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 50px; width: 100%; padding: 40px; background: var(--card-bg); border: var(--border-width) solid var(--border-color); box-shadow: 8px 8px 0 var(--border-color);">
         <p style="margin-bottom: 20px;">
           Halo! Saya <strong>Rizky Mochamad Sidik</strong>, seorang Full-Stack Web Developer dan Software Engineer yang berfokus pada pembangunan aplikasi web modern, efisien, dan berskala besar.
@@ -55,6 +56,7 @@ useHead({
         <h3 style="font-size: 1.5rem; margin-bottom: 20px;">Platform Sosial</h3>
         <div class="social-links" style="display: flex; gap: 25px; flex-wrap: wrap; font-weight: bold;">
           <a href="https://github.com/sidiktsq" target="_blank"
+              v-reveal="{ type: 'slide-up', delay: 100 }"
               style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: transform 0.2s;"
               onmouseover="this.style.transform='translateY(-2px)'"
               onmouseout="this.style.transform='translateY(0)'">
@@ -66,6 +68,7 @@ useHead({
             </svg> GitHub
           </a>
           <a href="https://www.tiktok.com/@inimsss3" target="_blank"
+              v-reveal="{ type: 'slide-up', delay: 200 }"
               style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: transform 0.2s;"
               onmouseover="this.style.transform='translateY(-2px)'"
               onmouseout="this.style.transform='translateY(0)'">
@@ -76,6 +79,7 @@ useHead({
             </svg> TikTok
           </a>
           <a href="https://www.instagram.com/inimsss/" target="_blank"
+              v-reveal="{ type: 'slide-up', delay: 300 }"
               style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: transform 0.2s;"
               onmouseover="this.style.transform='translateY(-2px)'"
               onmouseout="this.style.transform='translateY(0)'">
@@ -91,7 +95,7 @@ useHead({
 
       <!-- Skills and Experience Grid -->
       <div class="about-grid">
-        <div class="card">
+        <div class="card" v-reveal="'slide-up'">
           <h3>Skills</h3>
           <div class="skills-tags">
             <span class="tag">HTML5</span>
@@ -111,7 +115,7 @@ useHead({
             <span class="tag">Nuxt</span>
           </div>
         </div>
-        <div class="card">
+        <div class="card" v-reveal="{ type: 'slide-up', delay: 150 }">
           <h3>Experience</h3>
           <p>3+ years of experience building scalable web applications. Passionate about clean code and bold designs.</p>
         </div>

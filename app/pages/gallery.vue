@@ -59,7 +59,7 @@ const handleKeydown = (event) => {
   <div>
     <!-- Hero Header -->
     <section class="hero" style="min-height: 30vh; padding: 60px 5%; background-color: var(--secondary-color); background-image: linear-gradient(var(--border-color) 2px, transparent 2px), linear-gradient(90deg, var(--border-color) 2px, transparent 2px); background-size: 50px 50px;">
-      <div class="hero-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <div class="hero-content" v-reveal="'slide-up'" style="max-width: 800px; margin: 0 auto; text-align: center;">
         <h1 class="gallery-title">MY <span class="highlight">GALLERY</span></h1>
         <p class="gallery-desc">Kumpulan momen, seni, dan karya visual.</p>
       </div>
@@ -85,9 +85,10 @@ const handleKeydown = (event) => {
     <!-- Gallery Grid -->
     <div class="gallery-grid">
       <div 
-        v-for="img in galleryImages.slice(0, visibleCount)" 
+        v-for="(img, idx) in galleryImages.slice(0, visibleCount)" 
         :key="img" 
         class="gallery-item"
+        v-reveal="{ type: 'pop', delay: (idx % 4) * 80 }"
         @click="openLightbox(img)"
       >
         <img :src="`/gallery/${img}`" alt="Gallery image" loading="lazy">

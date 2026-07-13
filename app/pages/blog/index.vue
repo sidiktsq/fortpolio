@@ -10,7 +10,7 @@ useHead({
   <div>
     <!-- Hero Section -->
     <section class="hero" style="min-height: 40vh; padding: 60px 5%;">
-      <div class="hero-content" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <div class="hero-content" v-reveal="'slide-up'" style="max-width: 800px; margin: 0 auto; text-align: center;">
         <h1>DEV <span class="highlight">NOTES</span></h1>
         <p style="margin-top: 20px;">Tulisan santai seputar dunia programming, web development, dan teknologi terbaru.</p>
       </div>
@@ -20,7 +20,7 @@ useHead({
     <section class="section">
       <div class="projects-grid">
         <!-- Article 1 -->
-        <div class="project-card">
+        <div class="project-card" v-reveal="'pop'">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
             <img src="/images/neo2.webp" alt="Neo-Brutalism cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
@@ -33,7 +33,7 @@ useHead({
         </div>
 
         <!-- Article 2 -->
-        <div class="project-card">
+        <div class="project-card" v-reveal="{ type: 'pop', delay: 100 }">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
             <img src="/images/sql.webp" alt="MySQL cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
@@ -46,7 +46,7 @@ useHead({
         </div>
 
         <!-- Article 3 -->
-        <div class="project-card">
+        <div class="project-card" v-reveal="{ type: 'pop', delay: 200 }">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
             <img src="/images/react.webp" alt="React cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
@@ -59,7 +59,7 @@ useHead({
         </div>
 
         <!-- Article 4 -->
-        <div class="project-card">
+        <div class="project-card" v-reveal="'pop'">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
             <img src="/images/vs.webp" alt="VS Code cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
@@ -72,7 +72,7 @@ useHead({
         </div>
 
         <!-- Article 5 -->
-        <div class="project-card">
+        <div class="project-card" v-reveal="{ type: 'pop', delay: 100 }">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
             <img src="/images/nut.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
@@ -82,10 +82,10 @@ useHead({
             <p>Nuxt adalah framework open-source yang dibangun di atas Vue.js untuk mempermudah pengembangan aplikasi web modern. Nuxt dirancang agar developer dapat membangun website dan aplikasi dengan performa tinggi, struktur proyek yang rapi, serta optimasi SEO yang lebih baik dibandingkan aplikasi Vue biasa.</p>
             <NuxtLink to="/blog/artikel5" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Baca Artikel</NuxtLink>
           </div>
-          </div>
+        </div>
 
-          <!-- Article 6 -->
-        <div class="project-card">
+        <!-- Article 6 -->
+        <div class="project-card" v-reveal="{ type: 'pop', delay: 200 }">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
             <img src="/images/laravel.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>

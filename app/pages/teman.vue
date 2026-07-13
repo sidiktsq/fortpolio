@@ -9,13 +9,13 @@ useHead({
 <template>
   <div>
     <section class="section" style="padding-top: 120px; min-height: 80vh;">
-      <div class="section-header">
+      <div class="section-header" v-reveal="'slide-left'">
         <h2>LINGKARAN KONEKSI</h2>
       </div>
-      <p class="section-desc">Membangun ekosistem melalui interaksi. Daftar entitas luar biasa yang membentuk orbit digital saya.</p>
+      <p class="section-desc" v-reveal="'slide-up'">Membangun ekosistem melalui interaksi. Daftar entitas luar biasa yang membentuk orbit digital saya.</p>
 
       <!-- Category 1: Digital Nodes -->
-      <h3 class="category-title">
+      <h3 class="category-title" v-reveal="'slide-left'">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
           <circle cx="9" cy="7" r="4"></circle>
@@ -25,7 +25,7 @@ useHead({
         01 — Digital Nodes
       </h3>
       <div class="friends-grid">
-        <a href="https://www.davingm.com" target="_blank" class="friend-card">
+        <a href="https://www.davingm.com" target="_blank" class="friend-card" v-reveal="'pop'">
           <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/204519754?v=4" alt="davingm">
           <div class="friend-info">
             <h3 class="friend-name">davingm</h3>
@@ -33,7 +33,7 @@ useHead({
           </div>
         </a>
         
-        <a href="https://tokita.nlfts.dev" target="_blank" class="friend-card">
+        <a href="https://tokita.nlfts.dev" target="_blank" class="friend-card" v-reveal="{ type: 'pop', delay: 100 }">
           <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/182593937?v=4" alt="Tokita">
           <div class="friend-info">
             <h3 class="friend-name">Nafeez</h3>
@@ -43,14 +43,14 @@ useHead({
       </div>
 
       <!-- Category 2: Active Entities -->
-      <h3 class="category-title" style="margin-top: 60px;">
+      <h3 class="category-title" v-reveal="'slide-left'" style="margin-top: 60px;">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
         </svg>
         02 — Active Entities
       </h3>
       <div class="friends-grid">
-        <a href="https://vahllzzzz.nlfts.dev" target="_blank" class="friend-card">
+        <a href="https://vahllzzzz.nlfts.dev" target="_blank" class="friend-card" v-reveal="'pop'">
           <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/202130049?v=4" alt="Vahllzzzz">
           <div class="friend-info">
             <h3 class="friend-name">Vahllzzzz</h3>
@@ -58,7 +58,7 @@ useHead({
           </div>
         </a>
         
-        <a href="https://game-devbr0.nlfts.dev/" target="_blank" class="friend-card">
+        <a href="https://game-devbr0.nlfts.dev/" target="_blank" class="friend-card" v-reveal="{ type: 'pop', delay: 100 }">
           <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/228843429?v=4" alt="Bara">
           <div class="friend-info">
             <h3 class="friend-name">Bara</h3>
@@ -66,7 +66,7 @@ useHead({
           </div>
         </a>
 
-        <a href="https://destkaa.nlfts.dev/" target="_blank" class="friend-card">
+        <a href="https://destkaa.nlfts.dev/" target="_blank" class="friend-card" v-reveal="{ type: 'pop', delay: 200 }">
           <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/228332586?v=4" alt="Destkaa">
           <div class="friend-info">
             <h3 class="friend-name">Destkaa</h3>
@@ -74,7 +74,7 @@ useHead({
           </div>
         </a>
 
-        <a href="https://xoryn.nlfts.dev" target="_blank" class="friend-card">
+        <a href="https://xoryn.nlfts.dev" target="_blank" class="friend-card" v-reveal="{ type: 'pop', delay: 300 }">
           <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/226198461?v=4" alt="KakaViangi">
           <div class="friend-info">
             <h3 class="friend-name">Radiedtya</h3>
@@ -82,7 +82,7 @@ useHead({
           </div>
         </a>
 
-        <a href="https://lintangnwy.nlfts.dev/" target="_blank" class="friend-card">
+        <a href="https://lintangnwy.nlfts.dev/" target="_blank" class="friend-card" v-reveal="{ type: 'pop', delay: 400 }">
           <img class="friend-avatar" src="https://avatars.githubusercontent.com/u/216552062?v=4" alt="Lintangnwy">
           <div class="friend-info">
             <h3 class="friend-name">Lintangnwy</h3>

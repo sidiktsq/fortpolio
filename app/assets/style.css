@@ -746,3 +746,65 @@ footer {
         font-size: 0.8rem;
     }
 }
+
+/* ========== Scroll Reveal Animations ========== */
+.reveal {
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, opacity;
+}
+
+/* Slide Up */
+.reveal-slide-up {
+    transform: translateY(30px);
+}
+.reveal-slide-up.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Slide Down */
+.reveal-slide-down {
+    transform: translateY(-30px);
+}
+.reveal-slide-down.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Slide Left */
+.reveal-slide-left {
+    transform: translateX(-30px);
+}
+.reveal-slide-left.reveal-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Slide Right */
+.reveal-slide-right {
+    transform: translateX(30px);
+}
+.reveal-slide-right.reveal-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Pop (Staggered/Bounce look for cards/sections) */
+.reveal-pop {
+    transform: scale(0.92) rotate(-1.5deg);
+}
+.reveal-pop.reveal-visible {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* Fade */
+.reveal-fade {
+    transform: none;
+}
+.reveal-fade.reveal-visible {
+    opacity: 1;
+}

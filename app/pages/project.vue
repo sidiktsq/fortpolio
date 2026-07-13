@@ -2,7 +2,7 @@
 import { useHead } from '#imports'
 
 useHead({
-  title: 'Projects | Rizky Mochamad Sidik'
+  title: 'Projects | Rizky Mochamad Sidik',
 })
 </script>
 
@@ -10,12 +10,12 @@ useHead({
   <div>
     <!-- Projects Section -->
     <section id="projects" class="section">
-      <div class="section-header">
+      <div class="section-header" v-reveal="'slide-left'">
         <h2>PROJECTS-RIZKY MOCHAMAD SIDIK</h2>
       </div>
       <div class="projects-grid">
          <!-- Article 1 -->
-        <div class="project-card">
+        <div class="project-card" v-reveal="'pop'">
           <img src="/images/comprofile.webp" alt="company profile cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
             <h3 style="font-size: 1.3rem; line-height: 1.3;">COMPANY PROFILE</h3>
@@ -25,7 +25,7 @@ useHead({
         </div>
 
         <!-- Project 2 -->
-        <div class="project-card">
+        <div class="project-card" v-reveal="{ type: 'pop', delay: 100 }">
           <img src="/images/porto.webp" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
             <h3 style="font-size: 1.3rem; line-height: 1.3;">PORTFOLIO WEBSITE</h3>
@@ -35,7 +35,7 @@ useHead({
         </div>
 
         <!-- Project 3 -->
-       <div class="project-card">
+       <div class="project-card" v-reveal="{ type: 'pop', delay: 200 }">
           <img src="/images/vhgallery.webp" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
             <h3 style="font-size: 1.3rem; line-height: 1.3;">VILLHAZE</h3>
