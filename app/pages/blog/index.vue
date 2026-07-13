@@ -96,6 +96,54 @@ useHead({
             <NuxtLink to="/blog/artikel6" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Baca Artikel</NuxtLink>
           </div>
         </div>
+        <!-- Article 7 -->
+         <div class="project-card" v-reveal="{ type: 'pop', delay: 100 }">
+          <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
+            <img src="/images/nut.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="project-info">
+            <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">Framework</span>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">Cara Menggunakan Resend di Nuxt.js untuk Mengirim Email dengan Mudah</h3>
+            <p>Di era aplikasi web modern, fitur pengiriman email menjadi salah satu kebutuhan yang hampir selalu ada. Mulai dari formulir kontak, notifikasi akun, email verifikasi, reset password, hingga newsletter</p>
+            <NuxtLink to="/blog/artikel7" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Baca Artikel</NuxtLink>
+          </div>
+        </div>
+        <!-- artikel 8 -->
+        <div class="project-card" v-reveal="{ type: 'pop', delay: 100 }">
+          <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
+            <img src="/images/framework.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="project-info">
+            <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">Framework</span>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">Framework Paling Populer untuk Web Development: Panduan Lengkap Memilih Framework Terbaik</h3>
+            <p>Dalam dunia pengembangan perangkat lunak, khususnya web development, penggunaan framework telah menjadi standar bagi para developer.</p>
+            <NuxtLink to="/blog/artikel8" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Baca Artikel</NuxtLink>
+          </div>
+        </div>
+        <!-- artikel 9 -->
+         <div class="project-card" v-reveal="{ type: 'pop', delay: 100 }">
+          <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
+            <img src="/images/pinia.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="project-info">
+            <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">Framework</span>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">Alasan Harus Menggunakan Pinia pada Proyek Vue.js dan Nuxt</h3>
+            <p>Ketika membangun aplikasi menggunakan Vue.js atau Nuxt, mengelola data yang digunakan oleh banyak komponen sering kali menjadi tantangan.</p>
+            <NuxtLink to="/blog/artikel9" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Baca Artikel</NuxtLink>
+          </div>
+        </div>
+        <!-- artikel 10  -->
+         <div class="project-card" v-reveal="{ type: 'pop', delay: 100 }">
+          <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
+            <img src="/images/ui.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="project-info">
+            <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">UI</span>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">Macam-Macam UI Website: Mengenal Berbagai Jenis Antarmuka yang Digunakan pada Website Modern.</h3>
+            <p>Dalam dunia pengembangan website, tampilan antarmuka atau **User Interface (UI)** memiliki peran yang sangat penting.</p>
+            <NuxtLink to="/blog/artikel10" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Baca Artikel</NuxtLink>
+          </div>
+        </div>
       </div>
     </section>
   </div>
