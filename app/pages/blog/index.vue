@@ -135,7 +135,7 @@ useHead({
         <!-- artikel 10  -->
          <div class="project-card" v-reveal="{ type: 'pop', delay: 100 }">
           <div style="height: 200px; background-color: var(--secondary-color); border-bottom: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center;">
-            <img src="/images/ui.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="/images/UI.webp" alt="Nuxt cover" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-info">
             <span class="tag" style="display: inline-block; width: max-content; margin-bottom: 15px; font-size: 0.8rem;">UI</span>
