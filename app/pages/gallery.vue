@@ -1,9 +1,12 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useHead } from '#imports'
+import { useLanguage } from '~/composables/useLanguage'
+
+const { t, currentLang } = useLanguage()
 
 useHead({
-  title: 'Gallery | Rizky Mochamad Sidik'
+  title: `${t('gallery')} | Rizky Mochamad Sidik`
 })
 
 const galleryImages = ref([])
@@ -60,8 +63,21 @@ const handleKeydown = (event) => {
     <!-- Hero Header -->
     <section class="hero" style="min-height: 30vh; padding: 60px 5%; background-color: var(--secondary-color); background-image: linear-gradient(var(--border-color) 2px, transparent 2px), linear-gradient(90deg, var(--border-color) 2px, transparent 2px); background-size: 50px 50px;">
       <div class="hero-content" v-reveal="'slide-up'" style="max-width: 800px; margin: 0 auto; text-align: center;">
-        <h1 class="gallery-title">MY <span class="highlight">GALLERY</span></h1>
-        <p class="gallery-desc">Kumpulan momen, seni, dan karya visual.</p>
+        <h1 class="gallery-title">
+          <template v-if="currentLang === 'id'">
+            GALERI <span class="highlight">VISUAL</span>
+          </template>
+          <template v-else-if="currentLang === 'zh'">
+            视觉 <span class="highlight">画廊</span>
+          </template>
+          <template v-else-if="currentLang === 'ja'">
+            ビジュアル <span class="highlight">ギャラリー</span>
+          </template>
+          <template v-else>
+            VISUAL <span class="highlight">GALLERY</span>
+          </template>
+        </h1>
+        <p class="gallery-desc">{{ t('gallery_desc') }}</p>
       </div>
     </section>
 
@@ -97,7 +113,12 @@ const handleKeydown = (event) => {
 
     <!-- Load More Button -->
     <div v-if="visibleCount < galleryImages.length" style="display: flex; justify-content: center; margin: 40px 0 60px 0;">
-      <button @click="loadMore" class="btn btn-primary" style="font-size: 1.1rem; padding: 14px 30px;">Load More Momen</button>
+      <button @click="loadMore" class="btn btn-primary" style="font-size: 1.1rem; padding: 14px 30px;">
+        <template v-if="currentLang === 'id'">Muat Lebih Banyak</template>
+        <template v-else-if="currentLang === 'zh'">加载更多</template>
+        <template v-else-if="currentLang === 'ja'">もっと読み込む</template>
+        <template v-else>Load More</template>
+      </button>
     </div>
   </div>
 </template>

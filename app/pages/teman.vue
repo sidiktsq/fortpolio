@@ -1,8 +1,11 @@
 <script setup>
 import { useHead } from '#imports'
+import { useLanguage } from '~/composables/useLanguage'
+
+const { t } = useLanguage()
 
 useHead({
-  title: 'Lingkaran Koneksi | Portofolio'
+  title: `${t('friends')} | Portofolio`
 })
 </script>
 
@@ -10,9 +13,9 @@ useHead({
   <div>
     <section class="section" style="padding-top: 120px; min-height: 80vh;">
       <div class="section-header" v-reveal="'slide-left'">
-        <h2>LINGKARAN KONEKSI</h2>
+        <h2>{{ t('friends_header') }}</h2>
       </div>
-      <p class="section-desc" v-reveal="'slide-up'">Membangun ekosistem melalui interaksi. Daftar entitas luar biasa yang membentuk orbit digital saya.</p>
+      <p class="section-desc" v-reveal="'slide-up'">{{ t('friends_desc') }}</p>
 
       <!-- Category 1: Digital Nodes -->
       <h3 class="category-title" v-reveal="'slide-left'">

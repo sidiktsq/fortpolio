@@ -1,5 +1,8 @@
 <script setup>
 import { useHead } from '#imports'
+import { useLanguage } from '~/composables/useLanguage'
+
+const { t } = useLanguage()
 
 useHead({
   title: 'Projects | Rizky Mochamad Sidik',
@@ -11,16 +14,16 @@ useHead({
     <!-- Projects Section -->
     <section id="projects" class="section">
       <div class="section-header" v-reveal="'slide-left'">
-        <h2>PROJECTS-RIZKY MOCHAMAD SIDIK</h2>
+        <h2>{{ t('projects_header') }}</h2>
       </div>
       <div class="projects-grid">
-         <!-- Article 1 -->
+         <!-- Project 1 -->
         <div class="project-card" v-reveal="'pop'">
           <img src="/images/comprofile.webp" alt="company profile cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
-            <h3 style="font-size: 1.3rem; line-height: 1.3;">COMPANY PROFILE</h3>
-            <p>A comprehensive company profile built with Laravel and PHP, designed to deliver a modern and seamless user experience.</p>
-            <NuxtLink to="https://sidiktsq-companyprofilesekolah.vercel.app/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Visit Website</NuxtLink>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">{{ t('proj_1_title') }}</h3>
+            <p>{{ t('proj_1_desc') }}</p>
+            <NuxtLink to="https://sidiktsq-companyprofilesekolah.vercel.app/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">{{ t('visit_web') }}</NuxtLink>
           </div>
         </div>
 
@@ -28,9 +31,9 @@ useHead({
         <div class="project-card" v-reveal="{ type: 'pop', delay: 100 }">
           <img src="/images/porto.webp" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
-            <h3 style="font-size: 1.3rem; line-height: 1.3;">PORTFOLIO WEBSITE</h3>
-            <p>A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics</p>
-            <NuxtLink to="https://sidiktsq.nlfts.dev/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Visit Website</NuxtLink>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">{{ t('proj_2_title') }}</h3>
+            <p>{{ t('proj_2_desc') }}</p>
+            <NuxtLink to="https://sidiktsq.nlfts.dev/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">{{ t('visit_web') }}</NuxtLink>
           </div>
         </div>
 
@@ -38,9 +41,9 @@ useHead({
        <div class="project-card" v-reveal="{ type: 'pop', delay: 200 }">
           <img src="/images/vhgallery.webp" alt="porto cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
           <div class="project-info">
-            <h3 style="font-size: 1.3rem; line-height: 1.3;">VILLHAZE</h3>
-            <p>Gallery of Villhaze is a modern online gallery that showcases a curated collection of visuals, artwork, and creative moments in a clean, immersive, and responsive experience.</p>
-            <NuxtLink to="https://gallery-of-villhaze.vercel.app/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">Visit Website</NuxtLink>
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">{{ t('proj_3_title') }}</h3>
+            <p>{{ t('proj_3_desc') }}</p>
+            <NuxtLink to="https://gallery-of-villhaze.vercel.app/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">{{ t('visit_web') }}</NuxtLink>
           </div>
         </div>
       </div>

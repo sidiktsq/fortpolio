@@ -1,5 +1,8 @@
 <script setup>
 import { useHead } from '#imports'
+import { useLanguage } from '~/composables/useLanguage'
+
+const { t, currentLang } = useLanguage()
 
 useHead({
   title: 'Rizky Mochamad Sidik | Portofolio'
@@ -11,10 +14,23 @@ useHead({
     <!-- Hero Section -->
     <header class="hero">
       <div class="hero-content" v-reveal="'slide-up'">
-        <h1>HI, I'M RIZKY MOCHAMAD SIDIK<br><span class="highlight">FULL STACK</span><br> DEVELOPER.</h1>
-        <p>Building brutal, functional, and beautiful web experiences.</p>
+        <h1>
+          <template v-if="currentLang === 'id'">
+            HI, SAYA RIZKY MOCHAMAD SIDIK<br><span class="highlight">FULL STACK</span><br> DEVELOPER.
+          </template>
+          <template v-else-if="currentLang === 'zh'">
+            你好，我是 RIZKY MOCHAMAD SIDIK<br><span class="highlight">全栈</span><br> 开发人员。
+          </template>
+          <template v-else-if="currentLang === 'ja'">
+            こんにちは、リズキーです<br><span class="highlight">フルスタック</span><br> デベロッパー。
+          </template>
+          <template v-else>
+            HI, I'M RIZKY MOCHAMAD SIDIK<br><span class="highlight">FULL STACK</span><br> DEVELOPER.
+          </template>
+        </h1>
+        <p>{{ t('hero_desc') }}</p>
         <div class="hero-buttons">
-          <NuxtLink to="/project" class="btn btn-primary">See My Work</NuxtLink>
+          <NuxtLink to="/project" class="btn btn-primary">{{ t('hero_see_work') }}</NuxtLink>
           <a href="https://github.com/sidiktsq" target="_blank" class="btn btn-secondary">GitHub</a>
         </div>
       </div>
@@ -28,32 +44,72 @@ useHead({
     <!-- About Section -->
     <section id="about" class="section">
       <div class="section-header" v-reveal="'slide-left'">
-        <h2>ABOUT ME</h2>
+        <h2>{{ t('about_title') }}</h2>
       </div>
 
       <div class="about-text"
           v-reveal="'pop'"
           style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 50px; width: 100%; padding: 40px; background: var(--card-bg); border: var(--border-width) solid var(--border-color); box-shadow: 8px 8px 0 var(--border-color);">
         <p style="margin-bottom: 20px;">
-          Halo! Saya <strong>Rizky Mochamad Sidik</strong>, seorang Full-Stack Web Developer dan Software Engineer yang berfokus pada pembangunan aplikasi web modern, efisien, dan berskala besar.
+          {{ t('about_p1') }}
         </p>
         <p style="margin-bottom: 20px;">
-          Saya memiliki passion kuat dalam mentransformasikan ide kompleks menjadi solusi digital yang nyata dan berorientasi pada pengalaman pengguna. Anda dapat mengeksplorasi portofolio kerja saya melalui 
-          <strong>
-            <NuxtLink to="/project" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">daftar proyek saya di sini</NuxtLink>
-          </strong>.
+          <template v-if="currentLang === 'id'">
+            Saya memiliki passion kuat dalam mentransformasikan ide kompleks menjadi solusi digital yang nyata dan berorientasi pada pengalaman pengguna. Anda dapat mengeksplorasi portofolio kerja saya melalui 
+            <strong>
+              <NuxtLink to="/project" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">daftar proyek saya di sini</NuxtLink>
+            </strong>.
+          </template>
+          <template v-else-if="currentLang === 'zh'">
+            我热衷于将复杂的想法转化为切实的、以用户为中心的数字解决方案。您可以通过
+            <strong>
+              <NuxtLink to="/project" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">此处的项目列表</NuxtLink>
+            </strong> 探索我的工作组合。
+          </template>
+          <template v-else-if="currentLang === 'ja'">
+            複雑なアイデアを、具体的でユーザー中心 of デジタルソリューションに変えることに強い情熱を持っています。
+            <strong>
+              <NuxtLink to="/project" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">こちらのプロジェクトリスト</NuxtLink>
+            </strong> から私の実績をご覧ください。
+          </template>
+          <template v-else>
+            I have a strong passion for transforming complex ideas into tangible, user-centric digital solutions. You can explore my work portfolio through my 
+            <strong>
+              <NuxtLink to="/project" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">project list here</NuxtLink>
+            </strong>.
+          </template>
         </p>
         <p style="margin-bottom: 20px;">
-          Selain menulis kode, saya aktif membagikan catatan teknis dan tutorial seputar dunia coding 
-          <strong>
-            <NuxtLink to="/blog" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">di artikel blog</NuxtLink>
-          </strong>.
+          <template v-if="currentLang === 'id'">
+            Selain menulis kode, saya aktif membagikan catatan teknis dan tutorial seputar dunia coding 
+            <strong>
+              <NuxtLink to="/blog" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">di artikel blog</NuxtLink>
+            </strong>.
+          </template>
+          <template v-else-if="currentLang === 'zh'">
+            除了编写代码，我还积极在
+            <strong>
+              <NuxtLink to="/blog" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">博客文章</NuxtLink>
+            </strong> 中分享有关编码世界的规范技术笔记和教程。
+          </template>
+          <template v-else-if="currentLang === 'ja'">
+            コードを書くこと以外にも、
+            <strong>
+              <NuxtLink to="/blog" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">ブログ記事</NuxtLink>
+            </strong> でコーディングの世界に関する技術的なメモやチュートリアルを積極的に共有しています。
+          </template>
+          <template v-else>
+            Apart from writing code, I actively share technical notes and tutorials about the coding world 
+            <strong>
+              <NuxtLink to="/blog" style="color: inherit; text-decoration: underline; text-underline-offset: 4px;">in blog articles</NuxtLink>
+            </strong>.
+          </template>
         </p>
         <p style="margin-bottom: 20px;">
-          Saya selalu tertantang untuk mempelajari arsitektur teknologi baru, bereksperimen dengan desain antarmuka yang elegan, serta terus meningkatkan standar kemampuan rekayasa perangkat lunak saya.
+          {{ t('about_p4') }}
         </p>
 
-        <h3 style="font-size: 1.5rem; margin-bottom: 20px;">Platform Sosial</h3>
+        <h3 style="font-size: 1.5rem; margin-bottom: 20px;">{{ t('social_platform') }}</h3>
         <div class="social-links" style="display: flex; gap: 25px; flex-wrap: wrap; font-weight: bold;">
           <a href="https://github.com/sidiktsq" target="_blank"
               v-reveal="{ type: 'slide-up', delay: 100 }"
@@ -96,7 +152,7 @@ useHead({
       <!-- Skills and Experience Grid -->
       <div class="about-grid">
         <div class="card" v-reveal="'slide-up'">
-          <h3>Skills</h3>
+          <h3>{{ t('skills') }}</h3>
           <div class="skills-tags">
             <span class="tag">HTML5</span>
             <span class="tag">CSS3</span>
@@ -116,8 +172,21 @@ useHead({
           </div>
         </div>
         <div class="card" v-reveal="{ type: 'slide-up', delay: 150 }">
-          <h3>Experience</h3>
-          <p>3+ years of experience building scalable web applications. Passionate about clean code and bold designs.</p>
+          <h3>{{ t('experience') }}</h3>
+          <p>
+            <template v-if="currentLang === 'id'">
+              3+ tahun pengalaman membangun aplikasi web berskala besar. Sangat menyukai kode yang bersih dan desain yang berani.
+            </template>
+            <template v-else-if="currentLang === 'zh'">
+              3年以上的构建大规模Web应用程序的经验。热爱干净的代码和大胆的设计。
+            </template>
+            <template v-else-if="currentLang === 'ja'">
+              スケーラブルなWebアプリケーション構築における3年以上の経験。クリーンなコードと大胆なデザインに情熱を注いでいます。
+            </template>
+            <template v-else>
+              3+ years of experience building scalable web applications. Passionate about clean code and bold designs.
+            </template>
+          </p>
         </div>
       </div>
     </section>
