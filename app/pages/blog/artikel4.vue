@@ -1,8 +1,16 @@
 <script setup>
-import { useHead } from '#imports'
+import { useHead, computed } from '#imports'
+import { useLanguage } from '~/composables/useLanguage'
+import { artikel4Translations } from '~/composables/translations/artikel4'
+
+const { t, currentLang } = useLanguage()
+
+const trans = computed(() => {
+  return artikel4Translations[currentLang.value] || artikel4Translations.id
+})
 
 useHead({
-  title: 'Visual Studio Code | Rizky Mochamad Sidik'
+  title: () => `${trans.value.title} | Rizky Mochamad Sidik`
 })
 </script>
 
@@ -13,8 +21,10 @@ useHead({
         style="min-height: 30vh; padding: 60px 5%; background-image: linear-gradient(var(--border-color) 2px, transparent 2px), linear-gradient(90deg, var(--border-color) 2px, transparent 2px); background-size: 50px 50px; background-color: var(--secondary-color);">
       <div class="hero-content" style="max-width: 900px; margin: 0 auto; text-align: center;">
         <span class="tag"
-            style="display: inline-block; background: var(--tertiary-color); color: #1a1a1a; padding: 8px 20px; border: var(--border-width) solid var(--border-color); font-weight: 900; margin-bottom: 20px; font-size: 1rem;">VSCODE</span>
-        <h1 class="article-title">Visual Studio Code (VS Code): Editor Kode Modern yang Mengubah Cara Programmer Bekerja</h1>
+            style="display: inline-block; background: var(--tertiary-color); color: #1a1a1a; padding: 8px 20px; border: var(--border-width) solid var(--border-color); font-weight: 900; margin-bottom: 20px; font-size: 1rem;">
+          {{ trans.tag }}
+        </span>
+        <h1 class="article-title">{{ trans.title }}</h1>
       </div>
     </section>
 
@@ -27,155 +37,54 @@ useHead({
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
-          <span>Kembali ke Daftar Blog</span>
+          <span>{{ t('back_to_blog') }}</span>
         </NuxtLink>
 
-        <div class="article-content">
-          <p>Di dunia pengembangan perangkat lunak yang terus berkembang, pemilihan alat kerja menjadi salah satu faktor penting yang memengaruhi produktivitas seorang programmer. Salah satu editor kode yang paling populer dan banyak digunakan saat ini adalah Visual Studio Code atau yang lebih dikenal dengan singkatan VS Code. Sejak pertama kali diperkenalkan oleh Microsoft pada tahun 2015, VS Code berhasil menarik perhatian jutaan pengembang di seluruh dunia karena kombinasi antara kecepatan, fleksibilitas, dan fitur-fitur canggih yang ditawarkannya.</p>
-
-          <h2>Mengenal Visual Studio Code</h2>
-          <p>Visual Studio Code adalah editor kode sumber (source code editor) yang dirancang untuk membantu pengembang menulis, mengedit, dan mengelola kode program dengan lebih efisien. Berbeda dengan Integrated Development Environment (IDE) yang biasanya lebih berat dan kompleks, VS Code hadir sebagai editor ringan yang tetap memiliki kemampuan mendekati IDE melalui sistem ekstensi yang sangat luas.</p>
-          <p>VS Code mendukung berbagai sistem operasi seperti Windows, macOS, dan Linux. Selain itu, editor ini mendukung puluhan bahasa pemrograman, mulai dari JavaScript, Python, Java, C++, PHP, Go, Rust, hingga bahasa-bahasa modern lainnya. Kemampuan lintas platform inilah yang membuat VS Code menjadi pilihan utama bagi banyak pengembang, baik pemula maupun profesional.</p>
-
-          <h2>Sejarah Singkat VS Code</h2>
-          <p>Sebelum hadirnya VS Code, banyak programmer menggunakan editor seperti Notepad++, Sublime Text, Atom, atau IDE yang lebih berat seperti Visual Studio. Melihat kebutuhan akan editor yang cepat namun tetap kaya fitur, Microsoft kemudian mengembangkan Visual Studio Code menggunakan teknologi Electron.</p>
-          <p>Pada awal kemunculannya, banyak orang meragukan apakah produk dari Microsoft dapat diterima secara luas oleh komunitas pengembang. Namun seiring waktu, VS Code membuktikan dirinya sebagai editor yang terbuka, inovatif, dan ramah bagi berbagai ekosistem pemrograman. Kini VS Code menjadi salah satu editor kode paling populer di dunia dan sering menduduki peringkat teratas dalam berbagai survei pengembang.</p>
-
-          <h2>Mengapa VS Code Sangat Populer?</h2>
-          <p>Ada beberapa alasan yang membuat VS Code begitu diminati oleh komunitas programmer.</p>
-
-          <h3>1. Ringan dan Cepat</h3>
-          <p>Salah satu keunggulan utama VS Code adalah performanya yang cepat. Proses instalasi mudah, waktu startup singkat, dan penggunaan memori relatif efisien dibandingkan banyak IDE tradisional. Hal ini memungkinkan programmer untuk langsung fokus bekerja tanpa harus menunggu aplikasi memuat terlalu lama.</p>
-
-          <h3>2. Gratis dan Open Source</h3>
-          <p>VS Code tersedia secara gratis untuk siapa saja. Selain itu, proyek dasarnya bersifat open source sehingga komunitas dapat berkontribusi dalam pengembangannya. Model ini menciptakan ekosistem yang sehat dan terus berkembang.</p>
-
-          <h3>3. Dukungan Ekstensi yang Sangat Banyak</h3>
-          <p>Salah satu kekuatan terbesar VS Code adalah marketplace ekstensi yang sangat luas. Pengguna dapat menambahkan berbagai fitur sesuai kebutuhan, seperti:</p>
-          <ul>
-            <li>Dukungan bahasa pemrograman tambahan</li>
-            <li>Tema dan ikon kustom</li>
-            <li>Integrasi Git</li>
-            <li>Auto-completion berbasis AI</li>
-            <li>Formatter kode</li>
-            <li>Database tools</li>
-            <li>Docker support</li>
-            <li>Cloud deployment tools</li>
-          </ul>
-          <p>Dengan ribuan ekstensi yang tersedia, VS Code dapat diubah menjadi lingkungan kerja yang sangat personal dan sesuai kebutuhan masing-masing developer.</p>
-
-          <h3>4. IntelliSense yang Cerdas</h3>
-          <p>VS Code memiliki fitur IntelliSense yang membantu programmer saat menulis kode. Fitur ini memberikan:</p>
-          <ul>
-            <li>Saran penulisan kode</li>
-            <li>Informasi parameter fungsi</li>
-            <li>Auto-completion</li>
-            <li>Dokumentasi singkat</li>
-            <li>Deteksi kesalahan secara langsung</li>
-          </ul>
-          <p>Bagi pemula, IntelliSense dapat mempercepat proses belajar karena membantu memahami sintaks dan struktur bahasa pemrograman.</p>
-
-          <h2>Fitur-Fitur Unggulan VS Code</h2>
-
-          <h3>Terminal Terintegrasi</h3>
-          <p>Salah satu fitur favorit pengguna adalah terminal bawaan yang terintegrasi langsung di dalam editor. Dengan fitur ini, programmer tidak perlu berpindah ke aplikasi terminal terpisah untuk menjalankan perintah.</p>
-          <p>Misalnya saat mengembangkan aplikasi Node.js, pengguna dapat menjalankan:<br>
-          <code>npm install</code><br>
-          <code>npm run dev</code><br>
-          langsung dari dalam VS Code.</p>
-
-          <h3>Git Integration</h3>
-          <p>VS Code memiliki integrasi Git yang sangat baik. Pengguna dapat:</p>
-          <ul>
-            <li>Melihat perubahan file</li>
-            <li>Melakukan commit</li>
-            <li>Push dan pull repository</li>
-            <li>Membandingkan versi kode</li>
-            <li>Mengelola branch</li>
-          </ul>
-          <p>Semua ini dapat dilakukan melalui antarmuka grafis yang sederhana.</p>
-
-          <h3>Debugging yang Kuat</h3>
-          <p>Debugging merupakan proses penting dalam pengembangan perangkat lunak. VS Code menyediakan fitur debugging yang memungkinkan programmer:</p>
-          <ul>
-            <li>Menambahkan breakpoint</li>
-            <li>Melihat nilai variabel</li>
-            <li>Menelusuri alur program</li>
-            <li>Menganalisis error secara detail</li>
-          </ul>
-          <p>Fitur ini sangat membantu dalam menemukan dan memperbaiki bug dengan lebih cepat.</p>
-
-          <h3>Multi Cursor Editing</h3>
-          <p>VS Code memungkinkan pengguna mengedit beberapa bagian kode sekaligus menggunakan multi cursor. Fitur ini sangat berguna ketika melakukan perubahan berulang pada banyak baris kode.</p>
-
-          <h3>Code Snippets</h3>
-          <p>Snippet memungkinkan programmer menyisipkan potongan kode yang sering digunakan hanya dengan beberapa karakter singkat. Hal ini meningkatkan produktivitas dan mengurangi kesalahan pengetikan.</p>
-
-          <h2>Peran VS Code dalam Dunia Modern</h2>
-          <p>Saat ini pengembangan perangkat lunak tidak hanya terbatas pada aplikasi desktop. Pengembang juga bekerja pada:</p>
-          <ul>
-            <li>Website modern</li>
-            <li>Aplikasi mobile</li>
-            <li>Cloud computing</li>
-            <li>Artificial Intelligence</li>
-            <li>Machine Learning</li>
-            <li>Internet of Things (IoT)</li>
-            <li>Data Science</li>
-          </ul>
-          <p>VS Code mampu beradaptasi dengan berbagai bidang tersebut melalui ekstensi yang tersedia. Seorang web developer dapat menggunakan VS Code untuk membangun website, sementara data scientist dapat memanfaatkannya untuk menjalankan notebook Python dan analisis data.</p>
-
-          <h2>VS Code dan Kecerdasan Buatan</h2>
-          <p>Perkembangan kecerdasan buatan membawa perubahan besar dalam cara programmer bekerja. Saat ini tersedia berbagai alat berbasis AI yang terintegrasi dengan VS Code untuk membantu:</p>
-          <ul>
-            <li>Menulis kode lebih cepat</li>
-            <li>Menjelaskan fungsi program</li>
-            <li>Menemukan bug</li>
-            <li>Menghasilkan dokumentasi</li>
-            <li>Memberikan rekomendasi optimasi</li>
-          </ul>
-          <p>Kolaborasi antara editor modern dan teknologi AI menciptakan lingkungan pengembangan yang semakin produktif.</p>
-
-          <h2>Tips Menggunakan VS Code Secara Efektif</h2>
-          <p>Untuk memaksimalkan penggunaan VS Code, berikut beberapa tips yang dapat diterapkan:</p>
-          <ul>
-            <li>Pelajari keyboard shortcut agar pekerjaan lebih cepat.</li>
-            <li>Gunakan tema yang nyaman untuk mata.</li>
-            <li>Pasang ekstensi hanya yang benar-benar diperlukan.</li>
-            <li>Manfaatkan Git secara rutin untuk mengelola versi kode.</li>
-            <li>Gunakan fitur search dan replace yang canggih.</li>
-            <li>Pelajari penggunaan debugging tools.</li>
-            <li>Simpan konfigurasi menggunakan Settings Sync.</li>
-          </ul>
-          <p>Dengan kebiasaan tersebut, produktivitas dalam menulis kode dapat meningkat secara signifikan.</p>
-
-          <h2>Kelebihan dan Kekurangan VS Code</h2>
-          <div class="pros-cons-grid">
-            <div style="background: var(--tertiary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
-              <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">Kelebihan</h4>
-              <ul style="margin-top: 15px;">
-                <li>Gratis</li>
-                <li>Ringan dan cepat</li>
-                <li>Mendukung banyak bahasa pemrograman</li>
-                <li>Marketplace ekstensi yang besar</li>
-                <li>Integrasi Git yang baik</li>
-                <li>Komunitas pengguna yang luas</li>
-                <li>Dokumentasi lengkap</li>
-              </ul>
-            </div>
-            <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
-              <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">Kekurangan</h4>
-              <ul style="margin-top: 15px;">
-                <li>Bisa menjadi berat jika terlalu banyak ekstensi dipasang</li>
-                <li>Beberapa fitur lanjutan memerlukan konfigurasi tambahan</li>
-                <li>Tidak selengkap IDE khusus untuk bahasa tertentu</li>
-              </ul>
-            </div>
+        <div class="article-content" v-reveal="'pop'">
+          <!-- Table of Contents (for articles that support it) -->
+          <div v-if="trans.tocTitle && trans.toc" class="toc-box">
+            <h3>{{ trans.tocTitle }}</h3>
+            <ul>
+              <li v-for="(item, idx) in trans.toc" :key="idx">{{ item }}</li>
+            </ul>
           </div>
-          <p>Meskipun memiliki beberapa kekurangan, kelebihannya jauh lebih dominan sehingga tetap menjadi pilihan utama banyak pengembang.</p>
 
-          <h2>Kesimpulan</h2>
-          <p>Visual Studio Code bukan sekadar editor teks biasa. Ia telah berkembang menjadi salah satu alat pengembangan perangkat lunak paling berpengaruh di era modern. Dengan kombinasi kecepatan, fleksibilitas, dukungan komunitas yang besar, serta kemampuan untuk dikustomisasi melalui ribuan ekstensi, VS Code mampu memenuhi kebutuhan programmer dari berbagai tingkat pengalaman.</p>
-          <p>Baik untuk pemula yang baru belajar pemrograman maupun profesional yang mengembangkan aplikasi berskala besar, VS Code menawarkan lingkungan kerja yang nyaman, efisien, dan terus berkembang mengikuti kebutuhan industri teknologi. Tidak mengherankan jika hingga saat ini VS Code tetap menjadi salah satu editor kode yang paling dicintai oleh jutaan pengembang di seluruh dunia.</p>
+          <template v-for="(sec, idx) in trans.sections" :key="idx">
+            <h2 v-if="sec.h2">{{ sec.h2 }}</h2>
+            
+            <template v-if="sec.p">
+              <template v-if="Array.isArray(sec.p)">
+                <p v-for="(pText, pIdx) in sec.p" :key="pIdx">{{ pText }}</p>
+              </template>
+              <template v-else>
+                <p>{{ sec.p }}</p>
+              </template>
+            </template>
+
+            <template v-if="sec.subsections">
+              <div v-for="(sub, subIdx) in sec.subsections" :key="subIdx">
+                <h3>{{ sub.h3 }}</h3>
+                <p>{{ sub.p }}</p>
+              </div>
+            </template>
+
+            <template v-if="sec.pros && sec.cons">
+              <div class="pros-cons-grid">
+                <div style="background: var(--tertiary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+                  <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">{{ sec.pros.title }}</h4>
+                  <ul style="margin-top: 15px;">
+                    <li v-for="(item, itemIdx) in sec.pros.items" :key="itemIdx">{{ item }}</li>
+                  </ul>
+                </div>
+                <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+                  <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">{{ sec.cons.title }}</h4>
+                  <ul style="margin-top: 15px;">
+                    <li v-for="(item, itemIdx) in sec.cons.items" :key="itemIdx">{{ item }}</li>
+                  </ul>
+                </div>
+              </div>
+            </template>
+          </template>
         </div>
       </div>
     </section>

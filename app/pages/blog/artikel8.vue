@@ -1,8 +1,16 @@
 <script setup>
-import { useHead } from '#imports'
+import { useHead, computed } from '#imports'
+import { useLanguage } from '~/composables/useLanguage'
+import { artikel8Translations } from '~/composables/translations/artikel8'
+
+const { t, currentLang } = useLanguage()
+
+const trans = computed(() => {
+  return artikel8Translations[currentLang.value] || artikel8Translations.id
+})
 
 useHead({
-  title: 'Framework Web Development | Rizky Mochamad Sidik'
+  title: () => `${trans.value.title} | Rizky Mochamad Sidik`
 })
 </script>
 
@@ -13,8 +21,10 @@ useHead({
         style="min-height: 30vh; padding: 60px 5%; background-image: linear-gradient(var(--border-color) 2px, transparent 2px), linear-gradient(90deg, var(--border-color) 2px, transparent 2px); background-size: 50px 50px; background-color: var(--primary-color);">
       <div class="hero-content" style="max-width: 900px; margin: 0 auto; text-align: center;">
         <span class="tag"
-            style="display: inline-block; background: var(--tertiary-color); color: #1a1a1a; padding: 8px 20px; border: var(--border-width) solid var(--border-color); font-weight: 900; margin-bottom: 20px; font-size: 1rem;">Framework</span>
-        <h1 class="article-title">Framework Paling Populer untuk Web Development: Panduan Lengkap Memilih Framework Terbaik</h1>
+            style="display: inline-block; background: var(--tertiary-color); color: #1a1a1a; padding: 8px 20px; border: var(--border-width) solid var(--border-color); font-weight: 900; margin-bottom: 20px; font-size: 1rem;">
+          {{ trans.tag }}
+        </span>
+        <h1 class="article-title">{{ trans.title }}</h1>
       </div>
     </section>
 
@@ -27,267 +37,54 @@ useHead({
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
-          <span>Kembali ke Daftar Blog</span>
+          <span>{{ t('back_to_blog') }}</span>
         </NuxtLink>
 
         <div class="article-content" v-reveal="'pop'">
-          <h2>Pendahuluan</h2>
-          <p>Dalam dunia pengembangan perangkat lunak, khususnya web development, penggunaan framework telah menjadi standar bagi para developer. Framework membantu mempercepat proses pengembangan, membuat struktur kode lebih rapi, meningkatkan keamanan, dan memudahkan pemeliharaan aplikasi dalam jangka panjang.</p>
-          <p>Seiring berkembangnya teknologi, muncul berbagai framework dengan keunggulan masing-masing. Ada yang dirancang khusus untuk membangun antarmuka pengguna (frontend), ada pula yang fokus pada logika aplikasi dan pengelolaan data di sisi server (backend). Bahkan, beberapa framework menawarkan solusi full-stack yang memungkinkan developer membangun aplikasi secara menyeluruh menggunakan satu ekosistem.</p>
-          <p>Artikel ini akan membahas framework paling populer yang banyak digunakan oleh developer di seluruh dunia, kelebihan dan kekurangannya, serta tips memilih framework yang sesuai dengan kebutuhan proyek Anda.</p>
+          <!-- Table of Contents (for articles that support it) -->
+          <div v-if="trans.tocTitle && trans.toc" class="toc-box">
+            <h3>{{ trans.tocTitle }}</h3>
+            <ul>
+              <li v-for="(item, idx) in trans.toc" :key="idx">{{ item }}</li>
+            </ul>
+          </div>
 
-          <h2>Apa Itu Framework?</h2>
-          <p>Framework adalah sekumpulan pustaka (library), alat, dan aturan yang menyediakan fondasi untuk membangun sebuah aplikasi. Dengan framework, developer tidak perlu menulis semua kode dari awal karena banyak fungsi dasar sudah tersedia.</p>
-          <p>Sebagai contoh, framework biasanya menyediakan fitur seperti:</p>
-          <ul>
-            <li>Routing.</li>
-            <li>Manajemen database.</li>
-            <li>Autentikasi pengguna.</li>
-            <li>Keamanan aplikasi.</li>
-            <li>Pengelolaan state.</li>
-            <li>Struktur proyek yang terorganisir.</li>
-            <li>Optimasi performa.</li>
-          </ul>
-          <p>Framework memungkinkan developer lebih fokus mengembangkan fitur utama daripada membangun fungsi dasar berulang kali.</p>
+          <template v-for="(sec, idx) in trans.sections" :key="idx">
+            <h2 v-if="sec.h2">{{ sec.h2 }}</h2>
+            
+            <template v-if="sec.p">
+              <template v-if="Array.isArray(sec.p)">
+                <p v-for="(pText, pIdx) in sec.p" :key="pIdx">{{ pText }}</p>
+              </template>
+              <template v-else>
+                <p>{{ sec.p }}</p>
+              </template>
+            </template>
 
-          <h2>Mengapa Menggunakan Framework?</h2>
-          <p>Menggunakan framework memberikan banyak keuntungan, di antaranya:</p>
-          
-          <h3>1. Pengembangan Lebih Cepat</h3>
-          <p>Banyak fitur umum sudah tersedia sehingga waktu pengembangan menjadi lebih singkat.</p>
-          
-          <h3>2. Struktur Kode Lebih Rapi</h3>
-          <p>Framework menerapkan pola arsitektur tertentu sehingga proyek lebih mudah dipahami dan dikelola.</p>
-          
-          <h3>3. Keamanan Lebih Baik</h3>
-          <p>Sebagian besar framework modern memiliki perlindungan terhadap serangan seperti Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), dan SQL Injection.</p>
-          
-          <h3>4. Dokumentasi Lengkap</h3>
-          <p>Framework populer umumnya memiliki dokumentasi resmi yang lengkap serta komunitas aktif sehingga memudahkan proses belajar.</p>
-          
-          <h3>5. Mudah Dikembangkan</h3>
-          <p>Ketika aplikasi semakin besar, framework membantu menjaga struktur kode tetap terorganisir.</p>
+            <template v-if="sec.subsections">
+              <div v-for="(sub, subIdx) in sec.subsections" :key="subIdx">
+                <h3>{{ sub.h3 }}</h3>
+                <p>{{ sub.p }}</p>
+              </div>
+            </template>
 
-          <h2>Framework Frontend Paling Populer</h2>
-          
-          <h3>1. React</h3>
-          <p>React merupakan salah satu teknologi frontend paling populer yang dikembangkan oleh Meta. React menggunakan pendekatan berbasis komponen sehingga setiap bagian antarmuka dapat digunakan kembali.</p>
-          <h4>Kelebihan</h4>
-          <ul>
-            <li>Performa tinggi berkat Virtual DOM.</li>
-            <li>Komunitas sangat besar.</li>
-            <li>Banyak library pendukung.</li>
-            <li>Cocok untuk aplikasi berskala besar.</li>
-          </ul>
-          <h4>Kekurangan</h4>
-          <ul>
-            <li>Membutuhkan library tambahan untuk beberapa fitur.</li>
-            <li>Kurva belajar cukup menantang bagi pemula.</li>
-          </ul>
-          <p>React banyak digunakan oleh perusahaan besar seperti Facebook, Instagram, Netflix, dan Airbnb.</p>
-
-          <h3>2. Vue.js</h3>
-          <p>Vue.js dikenal sebagai framework yang ringan, fleksibel, dan mudah dipelajari.</p>
-          <h4>Kelebihan</h4>
-          <ul>
-            <li>Sintaks sederhana.</li>
-            <li>Dokumentasi sangat jelas.</li>
-            <li>Mudah dipelajari oleh pemula.</li>
-            <li>Performa cepat.</li>
-          </ul>
-          <h4>Kekurangan</h4>
-          <ul>
-            <li>Ekosistem tidak sebesar React.</li>
-            <li>Peluang kerja di beberapa wilayah mungkin lebih sedikit dibanding React.</li>
-          </ul>
-          <p>Vue cocok digunakan untuk dashboard, website perusahaan, maupun aplikasi web modern.</p>
-
-          <h3>3. Angular</h3>
-          <p>Angular merupakan framework frontend yang dikembangkan oleh Google.</p>
-          <h4>Kelebihan</h4>
-          <ul>
-            <li>Fitur sangat lengkap.</li>
-            <li>Menggunakan TypeScript secara bawaan.</li>
-            <li>Cocok untuk aplikasi enterprise.</li>
-            <li>Memiliki sistem dependency injection yang kuat.</li>
-          </ul>
-          <h4>Kekurangan</h4>
-          <ul>
-            <li>Kurva belajar lebih tinggi.</li>
-            <li>Struktur proyek cukup kompleks.</li>
-          </ul>
-          <p>Angular sering digunakan dalam aplikasi bisnis berskala besar.</p>
-
-          <h2>Framework Berbasis React</h2>
-          <h3>Next.js</h3>
-          <p>Next.js adalah framework berbasis React yang menawarkan berbagai fitur modern seperti:</p>
-          <ul>
-            <li>Server-Side Rendering (SSR).</li>
-            <li>Static Site Generation (SSG).</li>
-            <li>API Routes.</li>
-            <li>Image Optimization.</li>
-            <li>File-Based Routing.</li>
-          </ul>
-          <h4>Kelebihan</h4>
-          <ul>
-            <li>SEO lebih baik.</li>
-            <li>Performa tinggi.</li>
-            <li>Mudah di-deploy.</li>
-            <li>Cocok untuk blog, toko online, hingga aplikasi enterprise.</li>
-          </ul>
-
-          <h2>Framework Berbasis Vue</h2>
-          <h3>Nuxt.js</h3>
-          <p>Nuxt.js merupakan framework berbasis Vue yang dirancang untuk mempermudah pembangunan aplikasi modern.</p>
-          <p>Fitur utama Nuxt meliputi:</p>
-          <ul>
-            <li>Auto Import.</li>
-            <li>Server Rendering.</li>
-            <li>Static Site Generation.</li>
-            <li>API Server menggunakan Nitro.</li>
-            <li>Routing otomatis.</li>
-            <li>Integrasi TypeScript.</li>
-            <li>Dukungan modul yang lengkap.</li>
-          </ul>
-          <p>Nuxt menjadi pilihan populer bagi developer Vue karena produktivitas yang tinggi dan pengalaman pengembangan yang nyaman.</p>
-
-          <h2>Framework Backend Paling Populer</h2>
-          
-          <h3>Laravel</h3>
-          <p>Laravel merupakan framework PHP yang terkenal karena sintaksnya yang elegan dan fitur yang lengkap.</p>
-          <h4>Fitur</h4>
-          <ul>
-            <li>Eloquent ORM.</li>
-            <li>Blade Template.</li>
-            <li>Queue.</li>
-            <li>Authentication.</li>
-            <li>Migration.</li>
-            <li>Scheduler.</li>
-          </ul>
-          <p>Laravel banyak digunakan untuk membangun sistem informasi, e-commerce, hingga aplikasi bisnis.</p>
-
-          <h3>Express.js</h3>
-          <p>Express.js adalah framework backend minimalis yang berjalan di atas Node.js.</p>
-          <h4>Kelebihan</h4>
-          <ul>
-            <li>Ringan.</li>
-            <li>Cepat.</li>
-            <li>Mudah dipelajari.</li>
-            <li>Cocok untuk REST API.</li>
-          </ul>
-          <p>Express menjadi pilihan banyak developer yang menginginkan fleksibilitas tinggi.</p>
-
-          <h3>NestJS</h3>
-          <p>NestJS merupakan framework backend modern yang menggunakan TypeScript.</p>
-          <p>Framework ini mengadopsi konsep Dependency Injection dan arsitektur modular sehingga sangat cocok untuk proyek besar.</p>
-
-          <h3>Django</h3>
-          <p>Django adalah framework Python yang mengusung prinsip "batteries included", artinya banyak fitur penting sudah tersedia secara bawaan.</p>
-          <p>Framework ini terkenal karena:</p>
-          <ul>
-            <li>Aman.</li>
-            <li>Stabil.</li>
-            <li>Dokumentasi lengkap.</li>
-            <li>Pengembangan cepat.</li>
-          </ul>
-
-          <h3>Spring Boot</h3>
-          <p>Spring Boot adalah framework Java yang banyak digunakan perusahaan besar untuk membangun aplikasi enterprise.</p>
-          <p>Framework ini mendukung:</p>
-          <ul>
-            <li>REST API.</li>
-            <li>Microservices.</li>
-            <li>Security.</li>
-            <li>Database Integration.</li>
-            <li>Cloud Deployment.</li>
-          </ul>
-
-          <h2>Perbandingan Framework Populer</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Framework</th>
-                <th>Bahasa</th>
-                <th>Cocok Untuk</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>React</td>
-                <td>JavaScript</td>
-                <td>Frontend SPA</td>
-              </tr>
-              <tr>
-                <td>Vue.js</td>
-                <td>JavaScript</td>
-                <td>Frontend Modern</td>
-              </tr>
-              <tr>
-                <td>Angular</td>
-                <td>TypeScript</td>
-                <td>Enterprise</td>
-              </tr>
-              <tr>
-                <td>Next.js</td>
-                <td>React</td>
-                <td>Website SEO &amp; Full Stack</td>
-              </tr>
-              <tr>
-                <td>Nuxt.js</td>
-                <td>Vue</td>
-                <td>Website Modern &amp; SSR</td>
-              </tr>
-              <tr>
-                <td>Laravel</td>
-                <td>PHP</td>
-                <td>Backend Web</td>
-              </tr>
-              <tr>
-                <td>Express.js</td>
-                <td>JavaScript</td>
-                <td>REST API</td>
-              </tr>
-              <tr>
-                <td>NestJS</td>
-                <td>TypeScript</td>
-                <td>Backend Enterprise</td>
-              </tr>
-              <tr>
-                <td>Django</td>
-                <td>Python</td>
-                <td>Backend Cepat</td>
-              </tr>
-              <tr>
-                <td>Spring Boot</td>
-                <td>Java</td>
-                <td>Enterprise Besar</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h2>Bagaimana Memilih Framework?</h2>
-          <p>Tidak ada framework yang paling sempurna untuk semua proyek. Pilihan terbaik bergantung pada kebutuhan Anda.</p>
-          <p>Jika Anda ingin membangun antarmuka pengguna yang interaktif, React atau Vue.js bisa menjadi pilihan. Untuk website yang membutuhkan SEO yang baik, Next.js dan Nuxt.js menawarkan kemampuan rendering di sisi server yang sangat membantu. Jika fokus Anda adalah backend, Laravel, Django, Express.js, NestJS, atau Spring Boot dapat dipilih sesuai bahasa pemrograman yang dikuasai.</p>
-          <p>Selain itu, pertimbangkan juga faktor seperti dokumentasi, komunitas, kemudahan belajar, kebutuhan proyek, performa, dan peluang kerja di industri.</p>
-
-          <h2>Tips Belajar Framework</h2>
-          <ol style="margin-left: 20px; margin-bottom: 20px;">
-            <li style="margin-bottom: 8px;">Kuasai dasar bahasa pemrogramannya terlebih dahulu.</li>
-            <li style="margin-bottom: 8px;">Pelajari dokumentasi resmi framework.</li>
-            <li style="margin-bottom: 8px;">Buat proyek sederhana seperti blog atau aplikasi daftar tugas.</li>
-            <li style="margin-bottom: 8px;">Gunakan Git untuk mengelola versi kode.</li>
-            <li style="margin-bottom: 8px;">Pelajari cara menghubungkan aplikasi dengan database dan API.</li>
-            <li style="margin-bottom: 8px;">Ikuti perkembangan komunitas dan pembaruan framework.</li>
-          </ol>
-          <p>Belajar melalui praktik langsung akan mempercepat pemahaman dibanding hanya membaca teori.</p>
-
-          <h2>Tren Framework di Masa Depan</h2>
-          <p>Perkembangan framework terus bergerak menuju performa yang lebih tinggi, pengalaman pengembang yang lebih baik, serta dukungan terhadap teknologi modern seperti Server-Side Rendering, Static Site Generation, Edge Computing, dan integrasi kecerdasan buatan (AI). Framework juga semakin banyak mengadopsi TypeScript untuk meningkatkan kualitas dan keamanan kode.</p>
-          <p>Developer yang terus mengikuti perkembangan teknologi akan lebih siap menghadapi kebutuhan industri yang terus berubah.</p>
-
-          <h2>Kesimpulan</h2>
-          <p>Framework telah menjadi bagian penting dalam pengembangan perangkat lunak modern. Dengan memanfaatkan framework, developer dapat membangun aplikasi yang lebih cepat, lebih aman, dan lebih mudah dipelihara. React, Vue.js, Angular, Next.js, Nuxt.js, Laravel, Express.js, NestJS, Django, dan Spring Boot merupakan beberapa framework paling populer yang telah digunakan dalam berbagai jenis proyek, mulai dari website sederhana hingga aplikasi enterprise berskala besar.</p>
-          <p>Tidak ada satu framework yang paling unggul dalam semua situasi. Pilihan terbaik bergantung pada tujuan proyek, bahasa pemrograman yang digunakan, kebutuhan performa, serta pengalaman tim pengembang. Oleh karena itu, memahami karakteristik setiap framework akan membantu Anda menentukan teknologi yang paling sesuai dan membangun aplikasi yang berkualitas.</p>
+            <template v-if="sec.pros && sec.cons">
+              <div class="pros-cons-grid">
+                <div style="background: var(--tertiary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+                  <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">{{ sec.pros.title }}</h4>
+                  <ul style="margin-top: 15px;">
+                    <li v-for="(item, itemIdx) in sec.pros.items" :key="itemIdx">{{ item }}</li>
+                  </ul>
+                </div>
+                <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+                  <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">{{ sec.cons.title }}</h4>
+                  <ul style="margin-top: 15px;">
+                    <li v-for="(item, itemIdx) in sec.cons.items" :key="itemIdx">{{ item }}</li>
+                  </ul>
+                </div>
+              </div>
+            </template>
+          </template>
         </div>
       </div>
     </section>

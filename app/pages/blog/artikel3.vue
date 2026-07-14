@@ -1,8 +1,16 @@
 <script setup>
-import { useHead } from '#imports'
+import { useHead, computed } from '#imports'
+import { useLanguage } from '~/composables/useLanguage'
+import { artikel3Translations } from '~/composables/translations/artikel3'
+
+const { t, currentLang } = useLanguage()
+
+const trans = computed(() => {
+  return artikel3Translations[currentLang.value] || artikel3Translations.id
+})
 
 useHead({
-  title: 'Masa Depan React | Rizky Mochamad Sidik'
+  title: () => `${trans.value.title} | Rizky Mochamad Sidik`
 })
 </script>
 
@@ -13,8 +21,10 @@ useHead({
         style="min-height: 30vh; padding: 60px 5%; background-image: linear-gradient(var(--border-color) 2px, transparent 2px), linear-gradient(90deg, var(--border-color) 2px, transparent 2px); background-size: 50px 50px; background-color: #8a2be2;">
       <div class="hero-content" style="max-width: 900px; margin: 0 auto; text-align: center;">
         <span class="tag"
-            style="display: inline-block; background: var(--tertiary-color); color: #1a1a1a; padding: 8px 20px; border: var(--border-width) solid var(--border-color); font-weight: 900; margin-bottom: 20px; font-size: 1rem;">Frontend</span>
-        <h1 class="article-title">Masa Depan React dan Server Components: Evolusi Pengembangan Web Modern</h1>
+            style="display: inline-block; background: var(--tertiary-color); color: #1a1a1a; padding: 8px 20px; border: var(--border-width) solid var(--border-color); font-weight: 900; margin-bottom: 20px; font-size: 1rem;">
+          {{ trans.tag }}
+        </span>
+        <h1 class="article-title">{{ trans.title }}</h1>
       </div>
     </section>
 
@@ -27,109 +37,54 @@ useHead({
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
-          <span>Kembali ke Daftar Blog</span>
+          <span>{{ t('back_to_blog') }}</span>
         </NuxtLink>
 
-        <div class="article-content">
-          <div class="toc-box">
-            <h3>Topik Pembahasan</h3>
+        <div class="article-content" v-reveal="'pop'">
+          <!-- Table of Contents (for articles that support it) -->
+          <div v-if="trans.tocTitle && trans.toc" class="toc-box">
+            <h3>{{ trans.tocTitle }}</h3>
             <ul>
-              <li>Pengertian React dan Perkembangannya</li>
-              <li>Apa Itu React Server Components?</li>
-              <li>Alasan Hadirnya Server Components</li>
-              <li>Cara Kerja React Server Components</li>
-              <li>Keunggulan React Server Components</li>
-              <li>Tantangan dan Keterbatasan</li>
-              <li>Dampak terhadap Pengembangan Aplikasi Modern</li>
-              <li>Integrasi dengan Framework Modern</li>
-              <li>Prediksi Masa Depan React</li>
-              <li>Kesimpulan</li>
+              <li v-for="(item, idx) in trans.toc" :key="idx">{{ item }}</li>
             </ul>
           </div>
 
-          <h2>Pengantar</h2>
-          <p>Dalam beberapa tahun terakhir, React telah menjadi salah satu library JavaScript paling populer untuk membangun antarmuka pengguna (User Interface/UI). Digunakan oleh perusahaan teknologi besar hingga startup, React berhasil mengubah cara pengembang membangun aplikasi web yang interaktif, cepat, dan mudah dipelihara. Namun, seiring meningkatnya kompleksitas aplikasi modern, tantangan baru mulai muncul, seperti ukuran bundle JavaScript yang semakin besar, performa halaman yang menurun, dan kebutuhan rendering yang lebih efisien.</p>
-          <p>Untuk menjawab tantangan tersebut, tim pengembang React memperkenalkan konsep React Server Components (RSC). Teknologi ini dianggap sebagai salah satu perubahan terbesar dalam ekosistem React karena menawarkan pendekatan baru dalam membangun aplikasi web modern. Server Components tidak hanya berfokus pada performa, tetapi juga mengubah cara pengembang memisahkan logika antara server dan client.</p>
+          <template v-for="(sec, idx) in trans.sections" :key="idx">
+            <h2 v-if="sec.h2">{{ sec.h2 }}</h2>
+            
+            <template v-if="sec.p">
+              <template v-if="Array.isArray(sec.p)">
+                <p v-for="(pText, pIdx) in sec.p" :key="pIdx">{{ pText }}</p>
+              </template>
+              <template v-else>
+                <p>{{ sec.p }}</p>
+              </template>
+            </template>
 
-          <h2>Pengertian React dan Perkembangannya</h2>
-          <p>React pertama kali diperkenalkan oleh Jordan Walke pada tahun 2013 dan kemudian dikembangkan oleh Meta. Sejak kemunculannya, React menjadi pilihan utama dalam pengembangan aplikasi web karena menawarkan konsep Component-Based Architecture yang memungkinkan antarmuka dibangun dari komponen-komponen kecil yang dapat digunakan kembali.</p>
-          <p>Perjalanan React mengalami berbagai evolusi, mulai dari Class Components, Functional Components, Hooks, Concurrent Rendering, hingga React Server Components. Setiap inovasi tersebut bertujuan untuk meningkatkan pengalaman pengembang sekaligus memberikan performa yang lebih baik kepada pengguna akhir.</p>
-          <p>Saat ini, React tidak hanya digunakan untuk aplikasi web biasa, tetapi juga mendukung pengembangan aplikasi mobile melalui React Native serta berbagai platform lainnya.</p>
+            <template v-if="sec.subsections">
+              <div v-for="(sub, subIdx) in sec.subsections" :key="subIdx">
+                <h3>{{ sub.h3 }}</h3>
+                <p>{{ sub.p }}</p>
+              </div>
+            </template>
 
-          <h2>Apa Itu React Server Components?</h2>
-          <p>React Server Components adalah jenis komponen React yang dirender langsung di server sebelum hasilnya dikirim ke browser. Berbeda dengan komponen tradisional yang dijalankan di sisi client menggunakan JavaScript, Server Components memungkinkan sebagian besar logika aplikasi diproses di server.</p>
-          <p>Dengan pendekatan ini, browser hanya menerima hasil render yang sudah siap ditampilkan. Pengguna tidak perlu mengunduh banyak JavaScript untuk menampilkan konten awal halaman, sehingga waktu loading dapat menjadi lebih cepat.</p>
-          <p>Server Components bukan pengganti Client Components, melainkan pelengkap. Dalam praktiknya, pengembang dapat menggabungkan kedua jenis komponen tersebut sesuai kebutuhan aplikasi.</p>
-          <p>Sebagai contoh, halaman produk e-commerce dapat dirender menggunakan Server Components untuk mengambil data produk dari database, sementara fitur keranjang belanja dan interaksi pengguna tetap menggunakan Client Components.</p>
-
-          <h2>Alasan Hadirnya Server Components</h2>
-          <p>Semakin kompleks sebuah aplikasi, semakin besar pula jumlah JavaScript yang harus dikirim ke browser. Hal ini dapat menyebabkan beberapa masalah, seperti:</p>
-          <ul>
-            <li>Waktu loading halaman yang lebih lama.</li>
-            <li>Konsumsi bandwidth yang lebih besar.</li>
-            <li>Performa yang menurun pada perangkat dengan spesifikasi rendah.</li>
-            <li>Pengalaman pengguna yang kurang optimal.</li>
-          </ul>
-          <p>React Server Components hadir untuk mengatasi permasalahan tersebut dengan memindahkan sebagian proses rendering ke server. Dengan cara ini, browser hanya menerima hasil akhir yang diperlukan untuk ditampilkan kepada pengguna.</p>
-          <p>Selain itu, Server Components memungkinkan pengembang mengakses database, file system, atau API internal secara langsung tanpa perlu membuat endpoint tambahan yang kompleks.</p>
-
-          <h2>Cara Kerja React Server Components</h2>
-          <p>Secara sederhana, proses kerja React Server Components dapat dijelaskan melalui beberapa tahapan berikut:</p>
-          <ol style="margin-left: 20px; margin-bottom: 20px;">
-            <li style="margin-bottom: 10px;">Pengguna mengakses halaman aplikasi.</li>
-            <li style="margin-bottom: 10px;">Server menjalankan Server Components.</li>
-            <li style="margin-bottom: 10px;">Data diambil langsung dari database atau API.</li>
-            <li style="margin-bottom: 10px;">Hasil render dikirim ke browser dalam format yang telah dioptimalkan.</li>
-            <li style="margin-bottom: 10px;">Browser menampilkan konten tanpa harus menjalankan seluruh logika komponen tersebut.</li>
-          </ol>
-          <p>Pendekatan ini berbeda dengan model Single Page Application (SPA) tradisional yang biasanya mengirim banyak JavaScript ke browser sebelum halaman dapat digunakan secara penuh.</p>
-          <p>Dengan Server Components, sebagian besar pekerjaan berat dilakukan di server sehingga beban browser menjadi lebih ringan.</p>
-
-          <h2>Keunggulan React Server Components</h2>
-
-          <h3>1. Performa Lebih Cepat</h3>
-          <p>Karena komponen dirender di server, jumlah JavaScript yang harus diunduh pengguna menjadi lebih kecil. Hal ini dapat meningkatkan kecepatan loading halaman secara signifikan.</p>
-
-          <h3>2. Bundle Size Lebih Kecil</h3>
-          <p>Kode yang hanya diperlukan di server tidak perlu dikirim ke browser. Akibatnya ukuran bundle aplikasi dapat berkurang dan proses rendering menjadi lebih efisien.</p>
-
-          <h3>3. Akses Langsung ke Data</h3>
-          <p>Server Components dapat berinteraksi langsung dengan database tanpa memerlukan API tambahan. Pendekatan ini menyederhanakan arsitektur aplikasi sekaligus mengurangi latensi.</p>
-
-          <h3>4. SEO yang Lebih Baik</h3>
-          <p>Karena konten sudah tersedia sejak awal saat halaman dimuat, mesin pencari dapat mengindeks halaman dengan lebih mudah dibandingkan aplikasi yang sepenuhnya bergantung pada rendering di client.</p>
-
-          <h3>5. Keamanan yang Lebih Tinggi</h3>
-          <p>Logika sensitif dan akses database tetap berada di server sehingga tidak terekspos ke browser pengguna.</p>
-
-          <h2>Tantangan dan Keterbatasan</h2>
-          <p>Meskipun menawarkan banyak keuntungan, React Server Components juga memiliki beberapa tantangan.</p>
-          <p>Salah satunya adalah kurva pembelajaran yang cukup tinggi. Pengembang perlu memahami perbedaan antara Server Components dan Client Components agar dapat menggunakannya secara efektif.</p>
-          <p>Selain itu, tidak semua library pihak ketiga langsung kompatibel dengan pendekatan baru ini. Beberapa library yang bergantung pada browser API mungkin hanya dapat digunakan dalam Client Components.</p>
-          <p>Proses debugging juga dapat menjadi lebih kompleks karena kode aplikasi berjalan pada dua lingkungan yang berbeda, yaitu server dan client.</p>
-          <p>Namun, seiring berkembangnya ekosistem React, berbagai alat dan dokumentasi baru terus hadir untuk mengatasi tantangan tersebut.</p>
-
-          <h2>Dampak terhadap Pengembangan Aplikasi Modern</h2>
-          <p>React Server Components berpotensi mengubah standar pengembangan aplikasi web modern. Jika sebelumnya pengembang harus memilih antara rendering di server atau rendering di client, kini keduanya dapat dikombinasikan dalam satu arsitektur yang lebih fleksibel.</p>
-          <p>Pendekatan ini memungkinkan aplikasi menjadi lebih cepat tanpa mengorbankan interaktivitas. Pengembang dapat menentukan bagian mana yang cocok dijalankan di server dan bagian mana yang harus tetap berada di browser.</p>
-          <p>Konsep ini sangat relevan untuk aplikasi skala besar seperti e-commerce, dashboard analitik, platform media, hingga aplikasi berbasis SaaS yang membutuhkan performa tinggi.</p>
-
-          <h2>Integrasi dengan Framework Modern</h2>
-          <p>Perkembangan React Server Components sangat erat kaitannya dengan framework modern yang dibangun di atas React.</p>
-          <p>Framework seperti Next.js menjadi salah satu pelopor dalam mengimplementasikan Server Components secara penuh melalui App Router. Dengan fitur ini, pengembang dapat memanfaatkan kemampuan rendering server tanpa konfigurasi yang rumit.</p>
-          <p>Selain itu, framework lain seperti Remix dan Expo juga terus mengeksplorasi pendekatan baru untuk mengoptimalkan performa aplikasi berbasis React.</p>
-          <p>Integrasi yang semakin matang membuat Server Components menjadi lebih mudah diadopsi oleh berbagai jenis proyek, mulai dari startup hingga perusahaan besar.</p>
-
-          <h2>Prediksi Masa Depan React</h2>
-          <p>Melihat perkembangan yang ada saat ini, masa depan React kemungkinan akan semakin berfokus pada efisiensi rendering dan pengalaman pengguna. Server Components diperkirakan akan menjadi standar baru dalam pengembangan aplikasi React karena mampu mengatasi berbagai masalah performa yang selama ini dihadapi oleh aplikasi web modern.</p>
-          <p>Selain itu, integrasi dengan teknologi seperti Edge Computing, Streaming Rendering, Artificial Intelligence, dan Partial Hydration diprediksi akan semakin memperkuat posisi React sebagai salah satu teknologi frontend terdepan.</p>
-          <p>Ekosistem React juga akan terus berkembang dengan hadirnya framework, library, dan tooling baru yang dirancang khusus untuk mendukung paradigma pengembangan berbasis server.</p>
-          <p>Dalam beberapa tahun ke depan, batas antara frontend dan backend kemungkinan akan semakin tipis karena React memungkinkan keduanya bekerja secara lebih terintegrasi dibandingkan sebelumnya.</p>
-
-          <h2>Kesimpulan</h2>
-          <p>React Server Components merupakan salah satu inovasi terbesar dalam sejarah perkembangan React. Teknologi ini menghadirkan pendekatan baru yang memungkinkan rendering dilakukan secara lebih efisien dengan memanfaatkan kemampuan server tanpa menghilangkan interaktivitas yang menjadi ciri khas React.</p>
-          <p>Dengan keunggulan seperti performa yang lebih cepat, ukuran bundle yang lebih kecil, akses data yang lebih sederhana, serta dukungan SEO yang lebih baik, Server Components berpotensi menjadi fondasi utama dalam pengembangan aplikasi web generasi berikutnya.</p>
-          <p>Meskipun masih terdapat tantangan dalam proses adopsinya, perkembangan ekosistem React menunjukkan bahwa Server Components bukan sekadar tren sementara, melainkan bagian penting dari masa depan pengembangan web modern yang lebih cepat, efisien, dan skalabel.</p>
+            <template v-if="sec.pros && sec.cons">
+              <div class="pros-cons-grid">
+                <div style="background: var(--tertiary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+                  <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">{{ sec.pros.title }}</h4>
+                  <ul style="margin-top: 15px;">
+                    <li v-for="(item, itemIdx) in sec.pros.items" :key="itemIdx">{{ item }}</li>
+                  </ul>
+                </div>
+                <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+                  <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">{{ sec.cons.title }}</h4>
+                  <ul style="margin-top: 15px;">
+                    <li v-for="(item, itemIdx) in sec.cons.items" :key="itemIdx">{{ item }}</li>
+                  </ul>
+                </div>
+              </div>
+            </template>
+          </template>
         </div>
       </div>
     </section>

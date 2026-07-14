@@ -1,8 +1,16 @@
 <script setup>
-import { useHead } from '#imports'
+import { useHead, computed } from '#imports'
+import { useLanguage } from '~/composables/useLanguage'
+import { artikel6Translations } from '~/composables/translations/artikel6'
+
+const { t, currentLang } = useLanguage()
+
+const trans = computed(() => {
+  return artikel6Translations[currentLang.value] || artikel6Translations.id
+})
 
 useHead({
-  title: 'Laravel Framework | Rizky Mochamad Sidik'
+  title: () => `${trans.value.title} | Rizky Mochamad Sidik`
 })
 </script>
 
@@ -13,8 +21,10 @@ useHead({
         style="min-height: 30vh; padding: 60px 5%; background-image: linear-gradient(var(--border-color) 2px, transparent 2px), linear-gradient(90deg, var(--border-color) 2px, transparent 2px); background-size: 50px 50px; background-color: var(--primary-color);">
       <div class="hero-content" style="max-width: 900px; margin: 0 auto; text-align: center;">
         <span class="tag"
-            style="display: inline-block; background: var(--tertiary-color); color: #1a1a1a; padding: 8px 20px; border: var(--border-width) solid var(--border-color); font-weight: 900; margin-bottom: 20px; font-size: 1rem;">Framework</span>
-        <h1 class="article-title">Laravel: Framework PHP Modern untuk Pengembangan Aplikasi Web</h1>
+            style="display: inline-block; background: var(--tertiary-color); color: #1a1a1a; padding: 8px 20px; border: var(--border-width) solid var(--border-color); font-weight: 900; margin-bottom: 20px; font-size: 1rem;">
+          {{ trans.tag }}
+        </span>
+        <h1 class="article-title">{{ trans.title }}</h1>
       </div>
     </section>
 
@@ -27,134 +37,54 @@ useHead({
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
-          <span>Kembali ke Daftar Blog</span>
+          <span>{{ t('back_to_blog') }}</span>
         </NuxtLink>
 
-        <div class="article-content">
-          <p>Laravel adalah salah satu framework PHP paling populer di dunia yang digunakan untuk membangun aplikasi web modern. Framework ini pertama kali dikembangkan oleh Taylor Otwell dan dirilis pada tahun 2011 sebagai alternatif yang lebih elegan dan mudah digunakan dibandingkan banyak framework PHP lain pada masanya.</p>
-          <p>Sejak awal kemunculannya, Laravel telah berkembang pesat dan menjadi standar de facto bagi pengembang PHP yang ingin membangun aplikasi web dengan kode yang bersih, terstruktur, dan mudah dipelihara.</p>
-
-          <h2>Apa Itu Laravel?</h2>
-          <p>Laravel adalah framework PHP open-source yang mengikuti pola arsitektur MVC (Model-View-Controller). Framework ini menyediakan berbagai alat dan pustaka bawaan yang mempermudah tugas-tugas umum dalam pengembangan web seperti routing, autentikasi, session management, dan caching.</p>
-          <p>Jika PHP adalah bahasa dasar untuk membangun aplikasi web, maka Laravel adalah kerangka kerja yang menyederhanakan dan mempercepat proses pengembangan secara signifikan.</p>
-
-          <h2>Mengapa Laravel Populer?</h2>
-          <p>Laravel terus mendominasi ekosistem PHP karena menawarkan banyak keunggulan yang sangat dibutuhkan oleh developer modern.</p>
-
-          <h3>1. Sintaks yang Elegan</h3>
-          <p>Laravel dikenal dengan sintaks yang bersih dan ekspresif. Kode yang ditulis dengan Laravel mudah dibaca dan dipahami, bahkan oleh developer yang baru pertama kali menggunakannya.</p>
-          <div class="code-block">
-            Route::get('/hello', function () {<br>
-            &nbsp;&nbsp;return 'Hello, World!';<br>
-            });
+        <div class="article-content" v-reveal="'pop'">
+          <!-- Table of Contents (for articles that support it) -->
+          <div v-if="trans.tocTitle && trans.toc" class="toc-box">
+            <h3>{{ trans.tocTitle }}</h3>
+            <ul>
+              <li v-for="(item, idx) in trans.toc" :key="idx">{{ item }}</li>
+            </ul>
           </div>
 
-          <h3>2. Eloquent ORM</h3>
-          <p>Laravel menyediakan Eloquent, sebuah Object-Relational Mapping (ORM) yang memudahkan interaksi dengan database menggunakan sintaks PHP yang intuitif.</p>
-          <div class="code-block">
-            $users = User::where('active', true)->get();<br>
-            $post = Post::find(1);<br>
-            $post->title = 'Judul Baru';<br>
-            $post->save();
-          </div>
-          <p>Dengan Eloquent, developer tidak perlu menulis query SQL secara manual untuk operasi database yang umum.</p>
+          <template v-for="(sec, idx) in trans.sections" :key="idx">
+            <h2 v-if="sec.h2">{{ sec.h2 }}</h2>
+            
+            <template v-if="sec.p">
+              <template v-if="Array.isArray(sec.p)">
+                <p v-for="(pText, pIdx) in sec.p" :key="pIdx">{{ pText }}</p>
+              </template>
+              <template v-else>
+                <p>{{ sec.p }}</p>
+              </template>
+            </template>
 
-          <h3>3. Blade Templating Engine</h3>
-          <p>Laravel memiliki Blade, sebuah template engine yang ringan namun powerful. Blade memungkinkan developer membuat layout yang dinamis dan reusable.</p>
-          <div class="code-block">
-            @extends('layouts.app')<br><br>
-            @section('content')<br>
-            &nbsp;&nbsp;&lt;h1&gt;{{ $title }}&lt;/h1&gt;<br>
-            &nbsp;&nbsp;&lt;p&gt;{{ $content }}&lt;/p&gt;<br>
-            @endsection
-          </div>
+            <template v-if="sec.subsections">
+              <div v-for="(sub, subIdx) in sec.subsections" :key="subIdx">
+                <h3>{{ sub.h3 }}</h3>
+                <p>{{ sub.p }}</p>
+              </div>
+            </template>
 
-          <h2>Fitur-Fitur Unggulan Laravel</h2>
-
-          <h3>Artisan CLI</h3>
-          <p>Laravel dilengkapi dengan Artisan, sebuah command-line interface yang menyediakan berbagai perintah untuk mempercepat pengembangan.</p>
-          <div class="code-block">
-            php artisan make:model Product -m<br>
-            php artisan make:controller ProductController<br>
-            php artisan migrate
-          </div>
-          <p>Artisan mengotomatisasi banyak tugas repetitif sehingga developer dapat fokus pada logika bisnis.</p>
-
-          <h3>Sistem Autentikasi</h3>
-          <p>Laravel menyediakan sistem autentikasi yang siap pakai, termasuk login, registrasi, reset password, dan verifikasi email. Dengan Laravel Breeze atau Jetstream, autentikasi dapat diimplementasikan dalam hitungan menit.</p>
-
-          <h3>Migration & Seeder</h3>
-          <p>Laravel menggunakan migration untuk mengelola skema database secara terversi. Seeder memungkinkan pengisian data awal untuk keperluan pengujian.</p>
-          <div class="code-block">
-            Schema::create('products', function (Blueprint $table) {<br>
-            &nbsp;&nbsp;$table->id();<br>
-            &nbsp;&nbsp;$table->string('name');<br>
-            &nbsp;&nbsp;$table->decimal('price', 8, 2);<br>
-            &nbsp;&nbsp;$table->timestamps();<br>
-            });
-          </div>
-
-          <h3>Queue & Job Processing</h3>
-          <p>Laravel menyediakan sistem antrian (queue) yang memungkinkan pemrosesan tugas berat secara asinkron, seperti pengiriman email atau pemrosesan gambar.</p>
-
-          <h3>Laravel Ecosystem</h3>
-          <p>Laravel memiliki ekosistem yang sangat kaya, termasuk:</p>
-          <ul>
-            <li><strong>Laravel Forge</strong> — deployment dan manajemen server</li>
-            <li><strong>Laravel Vapor</strong> — serverless deployment di AWS</li>
-            <li><strong>Laravel Nova</strong> — admin panel</li>
-            <li><strong>Laravel Sanctum</strong> — API authentication</li>
-            <li><strong>Laravel Livewire</strong> — frontend interaktif tanpa JavaScript</li>
-          </ul>
-
-          <h2>Struktur Proyek Laravel</h2>
-          <p>Laravel memiliki struktur folder yang terorganisir dengan baik:</p>
-          <div class="code-block">
-            app/<br>
-            &nbsp;&nbsp;Models/<br>
-            &nbsp;&nbsp;Http/Controllers/<br>
-            config/<br>
-            database/<br>
-            &nbsp;&nbsp;migrations/<br>
-            &nbsp;&nbsp;seeders/<br>
-            resources/views/<br>
-            routes/<br>
-            public/
-          </div>
-          <p>Struktur ini membantu developer menjaga kode tetap terorganisir dan mudah ditemukan.</p>
-
-          <h2>Kelebihan dan Kekurangan Laravel</h2>
-          <div class="pros-cons-grid">
-            <div style="background: var(--tertiary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
-              <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">Kelebihan</h4>
-              <ul style="margin-top: 15px;">
-                <li>Sintaks elegan dan mudah dibaca</li>
-                <li>Eloquent ORM yang powerful</li>
-                <li>Ekosistem yang sangat lengkap</li>
-                <li>Komunitas besar dan aktif</li>
-                <li>Dokumentasi yang sangat baik</li>
-                <li>Sistem autentikasi bawaan</li>
-                <li>Artisan CLI yang membantu produktivitas</li>
-                <li>Dukungan testing yang kuat</li>
-              </ul>
-            </div>
-            <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
-              <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">Kekurangan</h4>
-              <ul style="margin-top: 15px;">
-                <li>Performa lebih lambat dibanding framework minimalis</li>
-                <li>Membutuhkan pemahaman PHP yang cukup baik</li>
-                <li>Ukuran framework relatif besar</li>
-                <li>Upgrade antar versi major kadang memerlukan perubahan signifikan</li>
-              </ul>
-            </div>
-          </div>
-
-          <h2>Masa Depan Laravel</h2>
-          <p>Laravel terus berevolusi dengan setiap rilis baru. Dengan fitur-fitur terbaru seperti Laravel Livewire untuk interaktivitas frontend, Laravel Octane untuk performa tinggi, dan integrasi AI yang semakin berkembang, Laravel tetap menjadi pilihan utama bagi developer PHP di seluruh dunia.</p>
-
-          <h2>Kesimpulan</h2>
-          <p>Laravel adalah framework PHP yang mengutamakan keeleganan kode, produktivitas developer, dan kelengkapan fitur. Dengan ekosistem yang kaya, komunitas yang besar, dan dokumentasi yang sangat baik, Laravel menjadi pilihan ideal untuk membangun aplikasi web modern dari skala kecil hingga enterprise.</p>
-          <p>Bagi developer yang ingin membangun aplikasi web dengan PHP secara profesional, Laravel adalah salah satu framework terbaik yang tersedia saat ini.</p>
+            <template v-if="sec.pros && sec.cons">
+              <div class="pros-cons-grid">
+                <div style="background: var(--tertiary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+                  <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">{{ sec.pros.title }}</h4>
+                  <ul style="margin-top: 15px;">
+                    <li v-for="(item, itemIdx) in sec.pros.items" :key="itemIdx">{{ item }}</li>
+                  </ul>
+                </div>
+                <div style="background: var(--primary-color); padding: 20px; border: var(--border-width) solid var(--border-color); color: #1a1a1a;">
+                  <h4 style="border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;">{{ sec.cons.title }}</h4>
+                  <ul style="margin-top: 15px;">
+                    <li v-for="(item, itemIdx) in sec.cons.items" :key="itemIdx">{{ item }}</li>
+                  </ul>
+                </div>
+              </div>
+            </template>
+          </template>
         </div>
       </div>
     </section>

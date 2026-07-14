@@ -70,9 +70,10 @@ export const useLanguage = () => {
       gallery_desc: "Kumpulan momen, visualisasi estetika, dan proyek desain.",
 
       // Blog Section
-      blog_header: "CATATAN DEV",
+      blog_header: 'CATATAN DEV',
       blog_desc: "Berbagi wawasan seputar dunia rekayasa perangkat lunak, tutorial coding, dan tips web development.",
       read_article: "Baca Artikel",
+      back_to_blog: "Kembali ke Daftar Blog",
 
       // Articles
       art_1_title: "Neo-Brutalism UI: Tren Desain Antarmuka Modern yang Berani, Unik, dan Berkarakter",
@@ -143,6 +144,7 @@ export const useLanguage = () => {
       blog_header: "DEV NOTES",
       blog_desc: "Sharing insights about software engineering, coding tutorials, and web development tips.",
       read_article: "Read Article",
+      back_to_blog: "Back to Blog List",
 
       art_1_title: "Neo-Brutalism UI: A Bold, Unique, and Characterful Modern Interface Design Trend",
       art_1_desc: "Web design trends keep evolving. Why does neo-brutalism with sharp lines and high contrast remain relevant today? Let's dissect the reasons.",
@@ -212,6 +214,7 @@ export const useLanguage = () => {
       blog_header: "开发笔记",
       blog_desc: "分享有关软件工程、编码教程和网页开发技巧的见解。",
       read_article: "阅读文章",
+      back_to_blog: "返回博客列表",
 
       art_1_title: "野兽派 UI：大胆、独特且极具个性的现代界面设计趋势",
       art_1_desc: "网页设计趋势不断演变。为什么具有清晰线条和对比色的野兽派今天依然流行？让我们来分析一下原因。",
@@ -278,9 +281,10 @@ export const useLanguage = () => {
       gallery_header: "ビジュアルギャラリー",
       gallery_desc: "瞬間、美的可視化、デザインプロジェクトのコレクション。",
 
-      blog_header: "開発者ノート",
+      blog_header: "开发者ノート",
       blog_desc: "ソフトウェアエンジニアリング、コーディングチュートリアル、Web開発のヒントに関する洞察を共有します。",
       read_article: "記事を読む",
+      back_to_blog: "ブログ一覧に戻る",
 
       art_1_title: "ネオ・ブルータリズムUI：大胆でユニーク、 arena 個性的なモダンUIデザインのトレンド",
       art_1_desc: "ウェブデザインのトレンドは進化し続けています。なぜはっきりとした境界線と高コントラストのネオ・ブルータリズムが今日でも受け入れられるのでしょうか？その理由を解説します。",
