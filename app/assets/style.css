@@ -422,27 +422,31 @@ footer {
 
     /* Navbar */
     .navbar {
-        padding: 15px 3%;
+        padding: 15px 5%;
         flex-wrap: nowrap;
     }
 
     .logo {
-        font-size: 1.2rem;
-        padding: 3px 10px;
+        font-size: 1.3rem;
+        padding: 4px 12px;
         white-space: nowrap;
     }
 
     .navbar-controls {
-        gap: 10px;
+        gap: 15px;
     }
 
-    .lang-btn {
-        padding: 5px 9px;
-        font-size: 0.75rem;
+    .nav-lang-selector {
+        display: none !important;
     }
 
-    .lang-selector {
-        box-shadow: 3px 3px 0 var(--border-color);
+    .menu-lang-selector-item {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 10px;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 15px;
     }
 
     /* Hero */
@@ -561,35 +565,23 @@ footer {
 
     /* Navbar */
     .navbar {
-        padding: 10px 2%;
-        gap: 8px;
+        padding: 12px 4%;
+        gap: 12px;
     }
 
     .logo {
-        font-size: 0.85rem;
-        padding: 3px 8px;
+        font-size: 1.1rem;
+        padding: 4px 10px;
         border: 2px solid var(--border-color);
-        box-shadow: 2px 2px 0 var(--border-color);
+        box-shadow: 3px 3px 0 var(--border-color);
     }
 
     .navbar-controls {
-        gap: 6px;
-    }
-
-    .lang-btn {
-        padding: 4px 7px;
-        font-size: 0.7rem;
-    }
-
-    .lang-selector {
-        padding: 2px;
-        gap: 1px;
-        box-shadow: 2px 2px 0 var(--border-color);
-        border-width: 2px;
+        gap: 10px;
     }
 
     .navbar .btn {
-        padding: 6px !important;
+        padding: 8px !important;
     }
 
     /* Hero */
@@ -852,6 +844,10 @@ footer {
     padding: 3px;
     gap: 2px;
     box-shadow: 4px 4px 0 var(--border-color);
+}
+
+.menu-lang-selector-item {
+    display: none;
 }
 
 .lang-btn {
