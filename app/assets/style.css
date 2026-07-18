@@ -120,6 +120,14 @@ body {
     box-shadow: 4px 4px 0 var(--border-color);
 }
 
+.navbar-controls {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: nowrap;
+}
+
 .nav-links {
     list-style: none;
     display: flex;
@@ -415,12 +423,26 @@ footer {
     /* Navbar */
     .navbar {
         padding: 15px 3%;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 
     .logo {
         font-size: 1.2rem;
         padding: 3px 10px;
+        white-space: nowrap;
+    }
+
+    .navbar-controls {
+        gap: 10px;
+    }
+
+    .lang-btn {
+        padding: 5px 9px;
+        font-size: 0.75rem;
+    }
+
+    .lang-selector {
+        box-shadow: 3px 3px 0 var(--border-color);
     }
 
     /* Hero */
@@ -539,24 +561,35 @@ footer {
 
     /* Navbar */
     .navbar {
-        padding: 12px 2%;
-        gap: 10px;
+        padding: 10px 2%;
+        gap: 8px;
     }
 
     .logo {
-        font-size: 1rem;
+        font-size: 0.85rem;
         padding: 3px 8px;
         border: 2px solid var(--border-color);
         box-shadow: 2px 2px 0 var(--border-color);
     }
 
-    /* Theme and menu buttons */
-    .navbar>div:last-child {
-        gap: 8px;
+    .navbar-controls {
+        gap: 6px;
+    }
+
+    .lang-btn {
+        padding: 4px 7px;
+        font-size: 0.7rem;
+    }
+
+    .lang-selector {
+        padding: 2px;
+        gap: 1px;
+        box-shadow: 2px 2px 0 var(--border-color);
+        border-width: 2px;
     }
 
     .navbar .btn {
-        padding: 10px !important;
+        padding: 6px !important;
     }
 
     /* Hero */

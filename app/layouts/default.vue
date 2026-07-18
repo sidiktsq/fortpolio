@@ -57,7 +57,7 @@ const toggleTheme = () => {
   <div class="layout-wrapper">
     <nav class="navbar">
       <div class="logo">{{ logoText }}</div>
-      <div style="position: relative; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+      <div class="navbar-controls">
         <!-- Language Switcher Capsule -->
         <div class="lang-selector">
           <button 
