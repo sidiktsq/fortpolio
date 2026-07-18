@@ -57,20 +57,20 @@ const toggleTheme = () => {
   <div class="layout-wrapper">
     <nav class="navbar">
       <div class="logo">{{ logoText }}</div>
-      <div class="navbar-controls">
-        <!-- Language Switcher Capsule -->
-        <div class="lang-selector nav-lang-selector">
-          <button 
-            v-for="lang in languages" 
-            :key="lang.code"
-            class="lang-btn"
-            :class="{ active: currentLang === lang.code }"
-            @click="setLanguage(lang.code)"
-          >
-            {{ lang.label }}
-          </button>
-        </div>
+      <!-- Language Switcher Capsule -->
+      <div class="lang-selector header-lang-selector">
+        <button 
+          v-for="lang in languages" 
+          :key="lang.code"
+          class="lang-btn"
+          :class="{ active: currentLang === lang.code }"
+          @click="setLanguage(lang.code)"
+        >
+          {{ lang.label }}
+        </button>
+      </div>
 
+      <div class="navbar-controls">
         <!-- Theme Toggle Button -->
         <div 
           class="btn"
@@ -117,20 +117,6 @@ const toggleTheme = () => {
           id="proj-menu"
           style="display: flex; position: absolute; top: 50px; right: 0; flex-direction: column; gap: 15px; background-color: var(--tertiary-color); border: 4px solid #1a1a1a; box-shadow: 4px 4px 0 #1a1a1a; padding: 20px; z-index: 100; list-style: none; min-width: 150px;"
         >
-          <!-- Mobile Language Selector inside Dropdown Menu -->
-          <li class="menu-lang-selector-item">
-            <div class="lang-selector menu-lang-selector">
-              <button 
-                v-for="lang in languages" 
-                :key="lang.code"
-                class="lang-btn"
-                :class="{ active: currentLang === lang.code }"
-                @click="setLanguage(lang.code)"
-              >
-                {{ lang.label }}
-              </button>
-            </div>
-          </li>
           <li>
             <NuxtLink 
               to="/" 
