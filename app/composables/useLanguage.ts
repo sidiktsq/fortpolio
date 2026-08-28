@@ -1,21 +1,15 @@
-import { useState } from '#imports'
+import { toRef } from 'vue'
+import { useSiteStore } from '~/stores/site'
 
 export const useLanguage = () => {
-  const currentLang = useState('lang', () => 'id')
+  const store = useSiteStore()
+  const currentLang = toRef(store, 'currentLang')
 
-  const setLanguage = (code) => {
-    currentLang.value = code
-    if (import.meta.client) {
-      localStorage.setItem('lang', code)
-    }
+  const setLanguage = (code: 'id' | 'en' | 'zh' | 'ja') => {
+    store.setLanguage(code)
   }
 
-  const languages = [
-    { code: 'id', label: 'ID' },
-    { code: 'en', label: 'EN' },
-    { code: 'zh', label: 'ZH' },
-    { code: 'ja', label: 'JA' }
-  ]
+  const languages = store.languages
 
   const translations = {
     id: {

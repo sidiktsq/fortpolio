@@ -1,11 +1,13 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useRoute, useState } from '#imports'
+import { useRoute } from '#imports'
 import { useLanguage } from '~/composables/useLanguage'
+import { useSiteStore } from '~/stores/site'
 
 const route = useRoute()
 const isMenuOpen = ref(false)
-const isDark = ref(false)
+const store = useSiteStore()
+const isDark = computed(() => store.isDark)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -25,31 +27,12 @@ const logoText = computed(() => {
 
 const { currentLang, languages, setLanguage, t } = useLanguage()
 
-// Persistent dark mode matching original theme.js and language settings
 onMounted(() => {
-  const savedTheme = localStorage.getItem('theme')
-  isDark.value = savedTheme === 'dark'
-  if (isDark.value) {
-    document.body.classList.add('dark-mode')
-  } else {
-    document.body.classList.remove('dark-mode')
-  }
-
-  const savedLang = localStorage.getItem('lang')
-  if (savedLang) {
-    currentLang.value = savedLang
-  }
+  store.applyPersistedState()
 })
 
 const toggleTheme = () => {
-  isDark.value = !isDark.value
-  if (isDark.value) {
-    document.body.classList.add('dark-mode')
-    localStorage.setItem('theme', 'dark')
-  } else {
-    document.body.classList.remove('dark-mode')
-    localStorage.setItem('theme', 'light')
-  }
+  store.toggleTheme()
 }
 </script>
 
