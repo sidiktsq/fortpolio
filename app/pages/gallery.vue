@@ -68,10 +68,10 @@ const handleKeydown = (event) => {
             GALERI <span class="highlight">VISUAL</span>
           </template>
           <template v-else-if="currentLang === 'zh'">
-            视觉 <span class="highlight">画廊</span>
+            è§†è§‰ <span class="highlight">ç”»å»Š</span>
           </template>
           <template v-else-if="currentLang === 'ja'">
-            ビジュアル <span class="highlight">ギャラリー</span>
+            ãƒ“ã‚¸ãƒ¥ã‚¢ãƒ« <span class="highlight">ã‚®ãƒ£ãƒ©ãƒªãƒ¼</span>
           </template>
           <template v-else>
             VISUAL <span class="highlight">GALLERY</span>
@@ -85,6 +85,7 @@ const handleKeydown = (event) => {
     <div 
       id="lightbox" 
       class="lightbox" 
+      data-lenis-prevent
       :class="{ active: isLightboxActive }"
       @click="closeLightbox"
     >
@@ -115,8 +116,8 @@ const handleKeydown = (event) => {
     <div v-if="visibleCount < galleryImages.length" style="display: flex; justify-content: center; margin: 40px 0 60px 0;">
       <button @click="loadMore" class="btn btn-primary" style="font-size: 1.1rem; padding: 14px 30px;">
         <template v-if="currentLang === 'id'">Muat Lebih Banyak</template>
-        <template v-else-if="currentLang === 'zh'">加载更多</template>
-        <template v-else-if="currentLang === 'ja'">もっと読み込む</template>
+        <template v-else-if="currentLang === 'zh'">åŠ è½½æ›´å¤š</template>
+        <template v-else-if="currentLang === 'ja'">ã‚‚ã£ã¨èª­ã¿è¾¼ã‚€</template>
         <template v-else>Load More</template>
       </button>
     </div>

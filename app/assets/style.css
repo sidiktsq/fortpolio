@@ -1,19 +1,23 @@
 /* ========== Lenis Smooth Scroll ========== */
+html {
+    scroll-behavior: auto !important;
+}
+
 html.lenis,
 html.lenis body {
     height: auto;
 }
 
-html.lenis.lenis-smooth {
+.lenis.lenis-smooth {
     scroll-behavior: auto !important;
 }
 
-html.lenis.lenis-smooth [data-lenis-prevent] {
+.lenis.lenis-smooth [data-lenis-prevent] {
     overscroll-behavior: contain;
 }
 
-html.lenis.lenis-stopped {
-    overflow: hidden;
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+    overflow: clip;
 }
 
 /* ========================================= */
@@ -51,7 +55,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 /* Utilities */
@@ -384,7 +388,7 @@ body {
     box-shadow: 8px 8px 0 var(--primary-color);
 }
 
-/* Layout Wrapper – sticky footer */
+/* Layout Wrapper â€“ sticky footer */
 .layout-wrapper {
     display: flex;
     flex-direction: column;

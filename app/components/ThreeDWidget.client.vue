@@ -34,6 +34,7 @@ let clock = null
 let animationFrameId = null
 let resizeObserver = null
 let bubbleTimer = null
+let onPageScroll = null
 
 // VRM/GLTF instances and groups
 let modelGroup = null
@@ -52,16 +53,16 @@ const debugInfo = ref({
   center: 'Loading...'
 })
 
-// ── Model Registry ──────────────────────────────────────────────────
+// â”€â”€ Model Registry â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const modelRegistry = [
   {
     id: 'elaina',
     name: 'Elaina',
     file: 'elaina.glb',
-    icon: '🧹',
-    greeting: 'Halo! Aku Elaina, Sang Penyihir Pengembara. Selamat datang di portofolio ini! 🔮',
+    icon: 'ðŸ§¹',
+    greeting: 'Halo! Aku Elaina, Sang Penyihir Pengembara. Selamat datang di portofolio ini! ðŸ”®',
     quotes: [
-      "Siapa gadis cantik berambut abu-abu ini? Ya, benar, aku! Elaina. ✨",
+      "Siapa gadis cantik berambut abu-abu ini? Ya, benar, aku! Elaina. âœ¨",
       "Perjalanan melintasi berbagai negeri sangat melelahkan, tapi melihat portofoliomu membuatku bersemangat!",
       "Wah, portofoliomu rapi sekali! Desain neo-brutalism yang unik, aku suka warnanya.",
       "Hei! Kamu bisa memutar tubuhku dengan mengklik dan mengeret mouse-mu. Seru juga!",
@@ -74,16 +75,16 @@ const modelRegistry = [
     id: 'mita',
     name: 'Mita',
     file: 'mita.glb',
-    icon: '🎀',
-    greeting: 'Haii~ Aku Mita! Senang bertemu denganmu di portofolio ini! 💕',
+    icon: 'ðŸŽ€',
+    greeting: 'Haii~ Aku Mita! Senang bertemu denganmu di portofolio ini! ðŸ’•',
     quotes: [
-      "Kamu tidak akan meninggalkanku, kan? Aku akan selalu di sini untukmu~ 💗",
-      "Portofolio ini keren banget! Aku suka desainnya~ Tapi aku lebih suka kamu. 😊",
-      "Hei, kamu tahu? Aku bisa melihat semua yang kamu lakukan di sini~ 👀",
-      "Jangan klik yang lain, cukup klik aku saja ya~ 💕",
-      "Aku sudah menunggu kamu dari tadi lho~ Akhirnya kamu datang juga! ✨",
-      "Kalau kamu butuh teman, aku selalu ada di sini. Selamanya~ 🌸",
-      "Wah, project-projectnya keren! Tapi yang paling keren itu kamu~ 💗"
+      "Kamu tidak akan meninggalkanku, kan? Aku akan selalu di sini untukmu~ ðŸ’—",
+      "Portofolio ini keren banget! Aku suka desainnya~ Tapi aku lebih suka kamu. ðŸ˜Š",
+      "Hei, kamu tahu? Aku bisa melihat semua yang kamu lakukan di sini~ ðŸ‘€",
+      "Jangan klik yang lain, cukup klik aku saja ya~ ðŸ’•",
+      "Aku sudah menunggu kamu dari tadi lho~ Akhirnya kamu datang juga! âœ¨",
+      "Kalau kamu butuh teman, aku selalu ada di sini. Selamanya~ ðŸŒ¸",
+      "Wah, project-projectnya keren! Tapi yang paling keren itu kamu~ ðŸ’—"
     ]
   }
 ]
@@ -93,7 +94,7 @@ const isSwitching = ref(false)
 
 const currentModel = () => modelRegistry[currentModelIndex.value]
 
-// ── Speech Bubble ───────────────────────────────────────────────────
+// â”€â”€ Speech Bubble â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const showBubble = (text) => {
   bubbleText.value = text
   bubbleActive.value = true
@@ -162,14 +163,19 @@ const handlePointerUp = (event) => {
   }
 }
 
-// Track mouse position relative to window for look-at tracking
+// Track mouse position relative to window for look-at tracking with RAF throttling
+let mouseMoveScheduled = false
 const handleMouseMoveGlobal = (event) => {
-  if (isHidden.value) return
-  mouseX.value = (event.clientX / window.innerWidth) * 2 - 1
-  mouseY.value = -(event.clientY / window.innerHeight) * 2 + 1
+  if (isHidden.value || mouseMoveScheduled) return
+  mouseMoveScheduled = true
+  requestAnimationFrame(() => {
+    mouseX.value = (event.clientX / window.innerWidth) * 2 - 1
+    mouseY.value = -(event.clientY / window.innerHeight) * 2 + 1
+    mouseMoveScheduled = false
+  })
 }
 
-// ── Core Model Loader ───────────────────────────────────────────────
+// â”€â”€ Core Model Loader â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function disposeCurrentModel() {
   if (currentVRM) {
     if (currentVRM.scene) {
@@ -382,7 +388,7 @@ function loadModel(modelInfo) {
   })
 }
 
-// ── Switch Model ────────────────────────────────────────────────────
+// â”€â”€ Switch Model â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const switchModel = async () => {
   if (isSwitching.value || !modelGroup) return
   
@@ -433,7 +439,7 @@ onMounted(async () => {
     }
   }
 
-  window.addEventListener('mousemove', handleMouseMoveGlobal)
+  window.addEventListener('mousemove', handleMouseMoveGlobal, { passive: true })
 
   // Wait for Vue to finish rendering the template so canvas ref is available
   await nextTick()
@@ -460,53 +466,72 @@ onMounted(async () => {
     // Standby position
     camera.position.set(0.0, 0.85, 3.0)
 
+    // Lightweight optimized WebGL renderer
     renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.value,
       antialias: true,
       alpha: true,
-      powerPreference: "high-performance"
+      powerPreference: "default"
     })
     renderer.setSize(width, height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25))
     renderer.outputColorSpace = THREE.SRGBColorSpace
-    renderer.shadowMap.enabled = true
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
-    // Lights Setup (Soft Studio Lighting)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5)
+    // Lights Setup (Soft Studio Lighting, no expensive dynamic shadow passes)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.8)
     scene.add(ambientLight)
 
-    const mainLight = new THREE.DirectionalLight(0xffffff, 2.5)
+    const mainLight = new THREE.DirectionalLight(0xffffff, 2.2)
     mainLight.position.set(2, 4, 3)
-    mainLight.castShadow = true
-    mainLight.shadow.mapSize.width = 1024
-    mainLight.shadow.mapSize.height = 1024
-    mainLight.shadow.bias = -0.0001
     scene.add(mainLight)
 
     const fillLight = new THREE.DirectionalLight(0xffedd5, 1.2)
     fillLight.position.set(-2, 1, 2)
     scene.add(fillLight)
 
-    const rimLight = new THREE.PointLight(0xffe4e6, 3.5, 4)
+    const rimLight = new THREE.PointLight(0xffe4e6, 3.0, 4)
     rimLight.position.set(-1, 2.5, -2)
     scene.add(rimLight)
 
     clock = new THREE.Clock()
 
-    // Load the initial model
-    try {
-      await loadModel(currentModel())
-      triggerGreeting()
-    } catch (e) {
-      console.error('Initial model load failed:', e)
-    }
+    // Defer initial model loading slightly so initial page render and Lenis mount first smoothly
+    setTimeout(async () => {
+      try {
+        await loadModel(currentModel())
+        triggerGreeting()
+      } catch (e) {
+        console.error('Initial model load failed:', e)
+      }
+    }, 350)
 
-    // Animation Loop
+    // Track page scrolling to suspend 3D rendering during active user scrolls
+    let isPageScrolling = false
+    let pageScrollTimer = null
+    onPageScroll = () => {
+      isPageScrolling = true
+      if (pageScrollTimer) clearTimeout(pageScrollTimer)
+      pageScrollTimer = setTimeout(() => {
+        isPageScrolling = false
+      }, 100)
+    }
+    window.addEventListener('scroll', onPageScroll, { passive: true })
+
+    // Animation Loop with FPS throttling (~40 FPS) to drastically cut GPU/CPU usage
+    const targetFPS = 40
+    const frameInterval = 1000 / targetFPS
+    let lastRenderTime = performance.now()
+
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate)
 
-      if (isHidden.value) return // Don't do any WebGL rendering or updates when hidden
+      // Skip render when widget hidden, tab inactive, or actively scrolling page
+      if (isHidden.value || document.hidden || isPageScrolling) return
+
+      const now = performance.now()
+      const elapsedSinceLast = now - lastRenderTime
+      if (elapsedSinceLast < frameInterval) return
+      lastRenderTime = now - (elapsedSinceLast % frameInterval)
 
       const delta = clock.getDelta()
       const elapsed = clock.getElapsedTime()
@@ -579,6 +604,9 @@ onMounted(async () => {
 onUnmounted(() => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('mousemove', handleMouseMoveGlobal)
+    if (onPageScroll) {
+      window.removeEventListener('scroll', onPageScroll)
+    }
   }
   
   if (animationFrameId) {
@@ -628,7 +656,7 @@ onUnmounted(() => {
           :disabled="isSwitching"
           :title="`Ganti ke ${modelRegistry[(currentModelIndex + 1) % modelRegistry.length].name}`"
         >
-          <span class="vrm-switch-icon">🔄</span>
+          <span class="vrm-switch-icon">ðŸ”„</span>
           <span class="vrm-switch-label">{{ modelRegistry[(currentModelIndex + 1) % modelRegistry.length].name }}</span>
         </button>
 
@@ -669,7 +697,7 @@ onUnmounted(() => {
       <!-- Loader (Centred Card Overlay) -->
       <div v-if="isLoading" class="vrm-loader">
         <div class="vrm-loader-inner">
-          <span class="vrm-loader-icon">🪄</span>
+          <span class="vrm-loader-icon">ðŸª„</span>
           <div class="vrm-loader-text">Loading {{ currentModel().name }}...</div>
           <div class="vrm-progressbar-border">
             <div class="vrm-progressbar-fill" :style="{ width: `${loadingProgress}%` }"></div>
@@ -681,7 +709,7 @@ onUnmounted(() => {
       <!-- Loading Error Message -->
       <div v-if="hasError" class="vrm-loader vrm-error">
         <div class="vrm-loader-inner">
-          <span class="vrm-loader-icon">❌</span>
+          <span class="vrm-loader-icon">âŒ</span>
           <div class="vrm-loader-text" style="color: var(--primary-color);">Gagal Memuat 3D!</div>
           <div v-if="errorMessage" style="font-size: 0.65rem; color: #555; margin-top: 6px; word-break: break-all; text-transform: none; font-weight: normal; line-height: 1.3;">
             {{ errorMessage }}
@@ -698,7 +726,7 @@ onUnmounted(() => {
       @click="showWidget"
       :title="`Tampilkan ${currentModel().name} 3D`"
     >
-      <span class="vrm-restore-icon">🔮</span>
+      <span class="vrm-restore-icon">ðŸ”®</span>
     </div>
   </div>
 </template>
@@ -740,7 +768,7 @@ onUnmounted(() => {
   cursor: grabbing;
 }
 
-/* ── Top Action Bar ────────────────────────────────────────────────── */
+/* â”€â”€ Top Action Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .vrm-action-bar {
   position: absolute;
   top: 10px;
@@ -758,7 +786,7 @@ onUnmounted(() => {
   opacity: 1;
 }
 
-/* ── Switch Model Button ─────────────────────────────────────────── */
+/* â”€â”€ Switch Model Button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .vrm-switch-btn {
   display: flex;
   align-items: center;
@@ -812,7 +840,7 @@ onUnmounted(() => {
   line-height: 1;
 }
 
-/* ── Character Name Badge ────────────────────────────────────────── */
+/* â”€â”€ Character Name Badge â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .vrm-name-badge {
   position: absolute;
   bottom: 90px;
@@ -853,7 +881,7 @@ onUnmounted(() => {
   color: #1a1a1a;
 }
 
-/* ── Close Button ────────────────────────────────────────────────── */
+/* â”€â”€ Close Button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .vrm-close-btn {
   background-color: var(--card-bg, #fff);
   border: 3px solid var(--border-color, #1a1a1a);

@@ -3,7 +3,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: ['@pinia/nuxt'],
-  css: ['~/assets/style.css'],
+  css: [
+    'lenis/dist/lenis.css',
+    '~/assets/style.css'
+  ],
   app: {
     head: {
       title: 'Rizky Mochamad Sidik | Portofolio',

@@ -46,16 +46,24 @@ const handleClose = () => {
   }, 1300)
 }
 
-onMounted(async () => {
+onMounted(() => {
   if (typeof window === 'undefined') return
+
+  // Do not load on small screens to preserve mobile performance & battery
+  if (window.innerWidth <= 768) {
+    isHidden.value = true
+    return
+  }
 
   // Check if closed in previous session
   if (sessionStorage.getItem('takagi-dsiplay') === 'none') {
     isHidden.value = true
   }
 
-  try {
-    // 1. Load JQuery (required by takagi-tips)
+  // Defer script injection slightly so portfolio content renders instantly
+  setTimeout(async () => {
+    try {
+      // 1. Load JQuery (required by takagi-tips)
     if (!window.$ || !window.jQuery) {
       await loadScript('https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js')
     }
@@ -121,6 +129,7 @@ onMounted(async () => {
   } catch (error) {
     console.error('Failed to initialize Live2D widget:', error)
   }
+}, 500)
 })
 
 onUnmounted(() => {
