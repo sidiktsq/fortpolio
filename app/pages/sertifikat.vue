@@ -11,7 +11,7 @@ useHead({
   meta: [
     { 
       name: 'description', 
-      content: 'Koleksi sertifikat profesional dan lisensi kompetensi web development Rizky Mochamad Sidik.' 
+      content: computed(() => t('certificates_desc')) 
     }
   ]
 })
@@ -76,7 +76,7 @@ const closeModal = () => {
 const copyCredentialId = async (id) => {
   try {
     await navigator.clipboard.writeText(id)
-    copyToast.value = `ID "${id}" berhasil disalin!`
+    copyToast.value = (t('cert_copy_success_msg') || 'ID "{id}" berhasil disalin!').replace('{id}', id)
     if (toastTimer) clearTimeout(toastTimer)
     toastTimer = setTimeout(() => {
       copyToast.value = ''
@@ -109,8 +109,8 @@ onUnmounted(() => {
     <section class="cert-hero" v-reveal="'slide-up'">
       <div class="cert-hero-inner">
         <div class="cert-badge">
-          <span class="badge-icon">ðŸŽ–ï¸</span>
-          <span>OFFICIAL CREDENTIALS &amp; CERTIFICATIONS</span>
+          <span class="badge-icon">🎖️</span>
+          <span>{{ t('cert_badge_text') }}</span>
         </div>
 
         <h1 class="cert-title">
@@ -118,10 +118,10 @@ onUnmounted(() => {
             SERTIFIKAT &amp; <span class="highlight">PENGHARGAAN</span>
           </template>
           <template v-else-if="currentLang === 'zh'">
-            ä¸“ä¸šè¯ä¹¦ä¸Ž <span class="highlight">è£èª‰æˆå°±</span>
+            专业证书与 <span class="highlight">荣誉成就</span>
           </template>
           <template v-else-if="currentLang === 'ja'">
-            è³‡æ ¼ãƒ»èªå®š <span class="highlight">ä¿®äº†è¨¼æ›¸</span>
+            資格・認定 <span class="highlight">修了証書</span>
           </template>
           <template v-else>
             CERTIFICATES &amp; <span class="highlight">AWARDS</span>
@@ -134,11 +134,11 @@ onUnmounted(() => {
         <div class="cert-stats-row">
           <div class="stat-pill">
             <span class="stat-num">{{ certificates.length }}+</span>
-            <span class="stat-text">Terverifikasi</span>
+            <span class="stat-text">{{ t('cert_stat_verified') }}</span>
           </div>
           <div class="stat-pill">
             <span class="stat-num">100%</span>
-            <span class="stat-text">Akreditasi Valid</span>
+            <span class="stat-text">{{ t('cert_stat_valid') }}</span>
           </div>
           <div class="stat-pill">
             <span class="stat-num">Full-Stack</span>
@@ -185,9 +185,9 @@ onUnmounted(() => {
             v-if="searchQuery" 
             class="search-clear-btn" 
             @click="searchQuery = ''"
-            title="Reset pencarian"
+            :title="t('cert_reset_search')"
           >
-            âœ•
+            ✕
           </button>
         </div>
       </div>
@@ -195,10 +195,21 @@ onUnmounted(() => {
       <!-- Result Counter -->
       <div class="cert-results-meta" v-reveal="'slide-up'">
         <span class="meta-label">
-          Menampilkan <strong>{{ filteredCertificates.length }}</strong> dari {{ certificates.length }} sertifikat
+          <template v-if="currentLang === 'id'">
+            Menampilkan <strong>{{ filteredCertificates.length }}</strong> dari {{ certificates.length }} sertifikat
+          </template>
+          <template v-else-if="currentLang === 'zh'">
+            显示 <strong>{{ filteredCertificates.length }}</strong> / {{ certificates.length }} 个证书
+          </template>
+          <template v-else-if="currentLang === 'ja'">
+            {{ certificates.length }} 件中 <strong>{{ filteredCertificates.length }}</strong> 件の証明書を表示
+          </template>
+          <template v-else>
+            Showing <strong>{{ filteredCertificates.length }}</strong> of {{ certificates.length }} certificates
+          </template>
         </span>
         <span v-if="searchQuery" class="meta-query-badge">
-          Kata Kunci: "{{ searchQuery }}"
+          {{ t('cert_keyword') }}: "{{ searchQuery }}"
         </span>
       </div>
 
@@ -209,11 +220,19 @@ onUnmounted(() => {
         v-reveal="'pop'"
       >
         <div class="empty-icon">📜</div>
-        <h3>Belum Menambahkan Sertifikat</h3>
-        <p>
-          Sertifikat belum tersedia. Silakan tambahkan sertifikat
-          untuk ditampilkan di halaman ini.
-        </p>
+        <h3>{{ t('cert_empty_title') }}</h3>
+        <p>{{ t('cert_empty_desc') }}</p>
+      </div>
+
+      <!-- No search results state -->
+      <div
+        v-else-if="filteredCertificates.length === 0"
+        class="cert-empty-state"
+        v-reveal="'pop'"
+      >
+        <div class="empty-icon">🔍</div>
+        <h3>{{ t('cert_no_results_title') }}</h3>
+        <p>{{ t('cert_no_results') }}</p>
       </div>
 
       <!-- Certificate Cards Grid -->
@@ -233,7 +252,7 @@ onUnmounted(() => {
               <span class="issuer-name">{{ cert.issuer }}</span>
             </div>
             <div class="cert-year-tag">
-              <span>ðŸ“… {{ cert.date }}</span>
+              <span>📅 {{ cert.date }}</span>
             </div>
           </div>
 
@@ -253,7 +272,7 @@ onUnmounted(() => {
               </div>
 
               <div class="diploma-stamp">
-                <span class="stamp-star">â˜…</span>
+                <span class="stamp-star">★</span>
                 <span class="stamp-text">VERIFIED</span>
               </div>
             </div>
@@ -261,7 +280,7 @@ onUnmounted(() => {
             <!-- Hover overlay -->
             <div class="frame-hover-overlay">
               <span class="btn btn-small btn-primary">
-                ðŸ” {{ t('cert_view') }}
+                🔍 {{ t('cert_view') }}
               </span>
             </div>
           </div>
@@ -284,7 +303,7 @@ onUnmounted(() => {
               </div>
               <button 
                 class="copy-id-btn" 
-                title="Salin ID Kredensial" 
+                :title="t('cert_copy_id')" 
                 @click="copyCredentialId(cert.credentialId)"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -339,8 +358,8 @@ onUnmounted(() => {
     >
       <div class="cert-modal-dialog" data-lenis-prevent v-reveal="'pop'">
         <!-- Modal Close Button -->
-        <button class="modal-close-btn" @click="closeModal" title="Tutup Modal (Esc)">
-          âœ•
+        <button class="modal-close-btn" @click="closeModal" :title="t('cert_close_modal')">
+          ✕
         </button>
 
         <div class="modal-inner-content">
@@ -365,14 +384,14 @@ onUnmounted(() => {
 
               <!-- Certificate Title & Recipient -->
               <div class="diploma-center-body">
-                <p class="diploma-subtitle">CERTIFICATE OF COMPLETION &amp; COMPETENCE</p>
+                <p class="diploma-subtitle">{{ t('cert_diploma_subtitle') }}</p>
                 <h2 class="diploma-main-title">
                   {{ selectedCert.title[currentLang] || selectedCert.title.id }}
                 </h2>
 
-                <p class="diploma-awarded-text">Diberikan secara resmi kepada:</p>
+                <p class="diploma-awarded-text">{{ t('cert_diploma_awarded') }}</p>
                 <h3 class="diploma-recipient-name">RIZKY MOCHAMAD SIDIK</h3>
-                <p class="diploma-role-tag">Full-Stack Web Developer &amp; Software Engineer</p>
+                <p class="diploma-role-tag">{{ t('cert_diploma_role') }}</p>
               </div>
 
               <!-- Tech Icon In Center -->
@@ -391,8 +410,8 @@ onUnmounted(() => {
                   <span class="foot-val-id">{{ selectedCert.credentialId }}</span>
                 </div>
                 <div class="foot-col">
-                  <span class="foot-label">Status</span>
-                  <span class="foot-status-badge">âœ… {{ t('cert_status_verified') }}</span>
+                  <span class="foot-label">{{ t('cert_diploma_status') }}</span>
+                  <span class="foot-status-badge">✅ {{ t('cert_status_verified') }}</span>
                 </div>
               </div>
             </div>
@@ -424,9 +443,9 @@ onUnmounted(() => {
                   <button 
                     class="btn btn-small copy-mini-btn" 
                     @click="copyCredentialId(selectedCert.credentialId)"
-                    title="Salin ID"
+                    :title="t('cert_copy_id')"
                   >
-                    Salin
+                    {{ t('cert_copy') }}
                   </button>
                 </div>
               </div>
@@ -437,7 +456,7 @@ onUnmounted(() => {
               <h4 class="skills-heading">{{ t('cert_skills') }}:</h4>
               <div class="modal-skills-tags">
                 <span v-for="skill in selectedCert.skills" :key="skill" class="modal-skill-tag">
-                  âœ“ {{ skill }}
+                  ✓ {{ skill }}
                 </span>
               </div>
             </div>
@@ -470,7 +489,7 @@ onUnmounted(() => {
     <!-- Copy Toast Notification -->
     <transition name="toast-fade">
       <div v-if="copyToast" class="neo-toast">
-        <span class="toast-icon">ðŸ“‹</span>
+        <span class="toast-icon">📋</span>
         <span class="toast-message">{{ copyToast }}</span>
       </div>
     </transition>
