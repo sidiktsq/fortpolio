@@ -169,6 +169,7 @@ useHead({
             <span class="tag">Tailwind</span>
             <span class="tag">Laragon</span>
             <span class="tag">Nuxt</span>
+            <span class="tag">Flutter</span>
           </div>
         </div>
         <div class="card" v-reveal="{ type: 'slide-up', delay: 150 }">

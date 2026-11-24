@@ -200,9 +200,6 @@ const toggleTheme = () => {
     <!-- Live2D Widget (Takagi) -->
     <Live2DWidget />
 
-    <!-- 3D VRM Widget (Elaina) - .client.vue handles client-only rendering -->
-    <ThreeDWidget />
-
     <!-- Unified Footer -->
     <footer>
       <p>&copy; 2026 Rizky Mochamad Sidik. Built with Nuxt.js</p>

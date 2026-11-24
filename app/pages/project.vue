@@ -46,6 +46,15 @@ useHead({
             <NuxtLink to="https://gallery-of-villhaze.vercel.app/" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">{{ t('visit_web') }}</NuxtLink>
           </div>
         </div>
+              <!-- Project 4 -->
+       <div class="project-card" v-reveal="{ type: 'pop', delay: 300 }">
+          <img src="/images/skin_valorant.webp" alt="skin valorant cover" style="width: 100%; height: auto; display: block; border-bottom: var(--border-width) solid var(--border-color);">
+          <div class="project-info">
+            <h3 style="font-size: 1.3rem; line-height: 1.3;">{{ t('proj_4_title') }}</h3>
+            <p>{{ t('proj_4_desc') }}</p>
+            <NuxtLink to="https://github.com/sidiktsq/senjata-valorant-dan-skin-nya-/releases/tag/apk-skin-valorant" class="btn btn-small" style="align-self: flex-start; margin-top: auto;">{{ t('visit_apk') }}</NuxtLink>
+          </div>
+        </div>
       </div>
     </section>
   </div>

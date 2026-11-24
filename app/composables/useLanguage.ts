@@ -11,7 +11,9 @@ export const useLanguage = () => {
 
   const languages = store.languages
 
-  const translations = {
+  type LangCode = 'id' | 'en' | 'zh' | 'ja'
+
+  const translations: Record<LangCode, Record<string, string>> = {
     id: {
       // Navbar / Header
       home: 'Beranda',
@@ -86,7 +88,10 @@ export const useLanguage = () => {
       proj_2_desc: "Template portofolio mencolok yang terinspirasi oleh nuxt.js, dibuat untuk menyoroti karya kreatif dengan estetika berani.",
       proj_3_title: "VILLHAZE",
       proj_3_desc: "Gallery of Villhaze adalah galeri online modern yang menampilkan koleksi visual terkurasi, karya seni, dan momen kreatif dalam pengalaman yang bersih, imersif, dan responsif.",
+      proj_4_title: "SKIN VALORANT",
+      proj_4_desc: "Aplikasi koleksi senjata dan skin Valorant yang menampilkan arsenal lengkap dengan detail visual, statistik, dan informasi skin secara interaktif.",
       visit_web: "Kunjungi Website",
+      visit_apk: "Kunjungi APK",
 
       // Friends Section
       friends_header: "LINGKARAN KONEKSI",
@@ -197,7 +202,10 @@ export const useLanguage = () => {
       proj_2_desc: "A striking portfolio template inspired by nuxt.js, crafted to highlight creative work with bold aesthetics.",
       proj_3_title: "VILLHAZE",
       proj_3_desc: "Gallery of Villhaze is a modern online gallery that showcases a curated collection of visuals, artwork, and creative moments in a clean, immersive, and responsive experience.",
+      proj_4_title: "SKIN VALORANT",
+      proj_4_desc: "A Valorant weapons and skins collection app showcasing the complete arsenal with visual details, stats, and interactive skin information.",
       visit_web: "Visit Website",
+      visit_apk: "Visit APK",
 
       friends_header: "CONNECTION CIRCLE",
       friends_desc: "Building ecosystems through interaction. List of entities connected in our network.",
@@ -303,7 +311,10 @@ export const useLanguage = () => {
       proj_2_desc: "一个受 nuxt.js 启发的醒目作品集模板，旨在以大胆的美学突出创意作品。",
       proj_3_title: "VILLHAZE",
       proj_3_desc: "Gallery of Villhaze 是一个现代在线画廊，以干净、沉浸式和响应式的体验展示精选的视觉效果、艺术品和创意瞬间。",
+      proj_4_title: "SKIN VALORANT",
+      proj_4_desc: "Valorant 武器与皮肤收藏应用，展示完整武器库及视觉细节、数据统计和交互式皮肤信息。",
       visit_web: "访问网站",
+      visit_apk: "访问 APK",
 
       friends_header: "人脉圈",
       friends_desc: "通过互动构建生态系统。我们网络中连接的实体列表。",
@@ -409,7 +420,10 @@ export const useLanguage = () => {
       proj_2_desc: "nuxt.jsにインスパイアされた、大胆な美学で創造的な作品を際立たせる印象的なポートフォリオテンプレート。",
       proj_3_title: "VILLHAZE",
       proj_3_desc: "Gallery of Villhazeは、クリーンで没入感のあるレスポンシブな体験の中で、厳選されたビジュアル、アートワーク、クリエイティブな瞬間を展示するモダンなオンラインギャラリーです。",
+      proj_4_title: "SKIN VALORANT",
+      proj_4_desc: "Valorantの武器＆スキンコレクションアプリ。完全な武器庫をビジュアルの詳細、統計情報、インタラクティブなスキン情報とともに紹介します。",
       visit_web: "ウェブサイトを見る",
+      visit_apk: "APKにアクセスする",
 
       friends_header: "接続サークル",
       friends_desc: "相互作用を通じてエコシステムを構築する。私たちのネットワークに接続されているエンティティのリスト。",
@@ -448,8 +462,9 @@ export const useLanguage = () => {
     }
   }
 
-  const t = (key) => {
-    return translations[currentLang.value]?.[key] || key
+  const t = (key: string): string => {
+    const lang = (currentLang.value || 'id') as LangCode
+    return translations[lang]?.[key] || key
   }
 
   return {
